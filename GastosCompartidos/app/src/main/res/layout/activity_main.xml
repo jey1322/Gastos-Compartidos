@@ -15,10 +15,10 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="200dp"
             android:src="@drawable/login"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="40dp"
             android:layout_marginHorizontal="20dp"/>
         
         <androidx.constraintlayout.widget.ConstraintLayout
