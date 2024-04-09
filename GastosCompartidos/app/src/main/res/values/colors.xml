@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="Background">#FF725E</color>
+    <color name="whiteInvert">#000</color>
 
     <color name="backp">#FFFFFF</color>
     <color name="backs">#F1F1F1</color>
