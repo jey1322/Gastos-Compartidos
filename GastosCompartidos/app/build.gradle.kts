@@ -39,16 +39,17 @@ android {
 dependencies {
 
     //librerias de firebase
-    implementation(platform(libs.firebase.bom))
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
 
     //viewmodel
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     //livedata
-    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
     //fragment
-    implementation(libs.androidx.fragment)
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
     //activity
-    implementation(libs.activity.ktx)
+    implementation("androidx.activity:activity-ktx:1.8.2")
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
