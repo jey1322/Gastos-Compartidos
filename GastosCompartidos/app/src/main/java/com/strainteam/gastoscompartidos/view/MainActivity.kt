@@ -13,6 +13,7 @@ import com.strainteam.gastoscompartidos.databinding.DialogCreateAccountBinding
 import com.strainteam.gastoscompartidos.viewmodel.MainViewModel
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.strainteam.gastoscompartidos.R
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
@@ -40,18 +41,36 @@ class MainActivity : AppCompatActivity() {
                     viewModel.createAccountFirebase(bindingDialog.etEmail.text.toString(),bindingDialog.etPassword.text.toString(),bindingDialog.etUserName.text.toString())
                     builder.dismiss()
                 }else{
-                    Toast.makeText(this,"Llena todos los campos",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"Llena todos los campos",Toast.LENGTH_LONG).show()
                 }
             }
         })
 
         viewModel.messageToast.observe(this, Observer{message ->
-            Toast.makeText(this,message,Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,message,Toast.LENGTH_LONG).show()
+        })
+
+        viewModel.errorSigIn.observe(this, Observer { error ->
+            Toast.makeText(this,error,Toast.LENGTH_LONG).show()
+            binding.btnEntrar.isEnabled = true
+            binding.btnEntrar.text = "Entrar"
+            binding.btnEntrar.setBackgroundResource(R.drawable.button)
         })
 
         //Eventos a click
         binding.tvCreateAccount.setOnClickListener {
             viewModel.createAccount()
+        }
+
+        binding.btnEntrar.setOnClickListener {
+            if(binding.etEmail.text.isNotEmpty() && binding.etPassword.text.isNotEmpty()) {
+                binding.btnEntrar.isEnabled = false
+                binding.btnEntrar.text = "Cargando..."
+                binding.btnEntrar.setBackgroundResource(R.drawable.button_cancel)
+                viewModel.sigInFirebase(binding.etEmail.text.toString(), binding.etPassword.text.toString())
+            }else{
+                Toast.makeText(this,"Llena todos los campos",Toast.LENGTH_LONG).show()
+            }
         }
 
     }

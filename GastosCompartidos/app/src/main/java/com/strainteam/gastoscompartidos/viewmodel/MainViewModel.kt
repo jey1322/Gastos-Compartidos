@@ -15,6 +15,7 @@ class MainViewModel: ViewModel() {
     private lateinit var database: FirebaseDatabase
     val showDialogEvent = SingleLiveEvent<Boolean>()
     val messageToast = MutableLiveData<String>()
+    val errorSigIn = MutableLiveData<String>()
 
     init {
         database = FirebaseDatabase.getInstance()
@@ -42,6 +43,16 @@ class MainViewModel: ViewModel() {
                 }
             }else{
                 messageToast.value = "Error al crear la cuenta: ${it.exception?.message}"
+            }
+        }
+    }
+
+    fun sigInFirebase(email: String, password: String){
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+            if(it.isSuccessful){
+                errorSigIn.value = "Bienvenido ${auth.currentUser?.email}"
+            }else{
+                errorSigIn.value = "Error al iniciar sesión: ${it.exception?.message}"
             }
         }
     }
