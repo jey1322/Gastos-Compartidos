@@ -56,6 +56,16 @@ class MainViewModel: ViewModel() {
             }
         }
     }
+
+    fun forgotPasswordFirebase(email: String){
+        auth.sendPasswordResetEmail(email).addOnCompleteListener {
+            if(it.isSuccessful){
+                messageToast.value = "Se ha enviado un correo para restablecer tu contraseña."
+            }else{
+                messageToast.value = "Error al enviar el correo: ${it.exception?.message}"
+            }
+        }
+    }
 }
 
 class SingleLiveEvent<T> : MutableLiveData<T>() {

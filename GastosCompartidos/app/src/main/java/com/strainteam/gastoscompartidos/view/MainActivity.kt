@@ -66,10 +66,18 @@ class MainActivity : AppCompatActivity() {
             if(binding.etEmail.text.isNotEmpty() && binding.etPassword.text.isNotEmpty()) {
                 binding.btnEntrar.isEnabled = false
                 binding.btnEntrar.text = "Cargando..."
-                binding.btnEntrar.setBackgroundResource(R.drawable.button_cancel)
                 viewModel.sigInFirebase(binding.etEmail.text.toString(), binding.etPassword.text.toString())
             }else{
                 Toast.makeText(this,"Llena todos los campos",Toast.LENGTH_LONG).show()
+            }
+        }
+
+        binding.tvForgotPassword.setOnClickListener {
+            if(binding.etEmail.text.isNotEmpty()) {
+                viewModel.forgotPasswordFirebase(binding.etEmail.text.toString())
+            }else{
+                binding.etEmail.error = "Ingresa tu correo"
+                binding.etEmail.requestFocus()
             }
         }
 
