@@ -44,7 +44,8 @@ dependencies {
 
     //librerias de firebase
     implementation(platform(libs.firebase.bom))
-
+    implementation(libs.firebase.auth)
+    implementation("com.google.firebase:firebase-database")
     //viewmodel
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     //livedata
