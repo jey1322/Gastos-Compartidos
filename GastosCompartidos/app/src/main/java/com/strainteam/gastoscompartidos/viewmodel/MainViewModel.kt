@@ -14,8 +14,8 @@ class MainViewModel: ViewModel() {
     private lateinit var dbReference: DatabaseReference
     private lateinit var database: FirebaseDatabase
     val showDialogEvent = SingleLiveEvent<Boolean>()
-    val messageToast = MutableLiveData<String>()
-    val errorSigIn = MutableLiveData<String>()
+    val messageToast = SingleLiveEvent<String>()
+    val errorSigIn = SingleLiveEvent<String>()
 
     init {
         database = FirebaseDatabase.getInstance()
