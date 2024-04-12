@@ -2,6 +2,7 @@ package com.strainteam.gastoscompartidos.view
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -47,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         viewModel.messageToast.observe(this, Observer{message ->
+            binding.progressBar.visibility = View.GONE
             Toast.makeText(this,message,Toast.LENGTH_LONG).show()
         })
 
@@ -55,6 +57,7 @@ class MainActivity : AppCompatActivity() {
             binding.btnEntrar.isEnabled = true
             binding.btnEntrar.text = "Entrar"
             binding.btnEntrar.setBackgroundResource(R.drawable.button)
+            binding.progressBar.visibility = View.GONE
         })
 
         //Eventos a click
@@ -66,6 +69,7 @@ class MainActivity : AppCompatActivity() {
             if(binding.etEmail.text.isNotEmpty() && binding.etPassword.text.isNotEmpty()) {
                 binding.btnEntrar.isEnabled = false
                 binding.btnEntrar.text = "Cargando..."
+                binding.progressBar.visibility = View.VISIBLE
                 viewModel.sigInFirebase(binding.etEmail.text.toString(), binding.etPassword.text.toString())
             }else{
                 Toast.makeText(this,"Llena todos los campos",Toast.LENGTH_LONG).show()
@@ -74,6 +78,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.tvForgotPassword.setOnClickListener {
             if(binding.etEmail.text.isNotEmpty()) {
+                binding.progressBar.visibility = View.VISIBLE
                 viewModel.forgotPasswordFirebase(binding.etEmail.text.toString())
             }else{
                 binding.etEmail.error = "Ingresa tu correo"

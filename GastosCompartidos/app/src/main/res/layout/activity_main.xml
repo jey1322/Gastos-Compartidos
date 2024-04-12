@@ -112,6 +112,17 @@
                 android:layout_marginHorizontal="60dp"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnEntrar"
+                android:layout_marginTop="30dp"/>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
