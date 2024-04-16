@@ -1,11 +1,10 @@
-package com.strainteam.gastoscompartidos.viewmodel
+package com.strainteam.gastoscompartidos.viewmodel.login
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -29,7 +28,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         auth= FirebaseAuth.getInstance()
         dbReference = database.reference.child("User")
         sessionManager = SessionManager(context)
-        if(sessionManager.fetchUid()!!.isNotEmpty()){startActivityHome.value = true}
+        try {
+            if(sessionManager.fetchUid()!!.isNotEmpty()){startActivityHome.value = true}
+        } catch (_: Exception) {}
     }
 
     fun createAccount(){

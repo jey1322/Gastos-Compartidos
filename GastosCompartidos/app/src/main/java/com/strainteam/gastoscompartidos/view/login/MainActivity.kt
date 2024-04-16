@@ -1,21 +1,16 @@
-package com.strainteam.gastoscompartidos.view
+package com.strainteam.gastoscompartidos.view.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.firebase.auth.FirebaseAuth
 import com.strainteam.gastoscompartidos.databinding.ActivityMainBinding
 import com.strainteam.gastoscompartidos.databinding.DialogCreateAccountBinding
-import com.strainteam.gastoscompartidos.viewmodel.MainViewModel
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.strainteam.gastoscompartidos.viewmodel.login.MainViewModel
 import com.strainteam.gastoscompartidos.R
 import com.strainteam.gastoscompartidos.view.home.Home
 
