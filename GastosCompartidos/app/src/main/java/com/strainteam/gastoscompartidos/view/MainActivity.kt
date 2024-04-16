@@ -1,5 +1,6 @@
 package com.strainteam.gastoscompartidos.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
             val dialog = MaterialAlertDialogBuilder(this)
             val bindingDialog = DialogCreateAccountBinding.inflate(layoutInflater)
             dialog.setView(bindingDialog.root)
+            dialog.setCancelable(false)
             val builder = dialog.create()
             builder.show()
             bindingDialog.btnCancel.setOnClickListener {
@@ -58,6 +60,25 @@ class MainActivity : AppCompatActivity() {
             binding.btnEntrar.text = "Entrar"
             binding.btnEntrar.setBackgroundResource(R.drawable.button)
             binding.progressBar.visibility = View.GONE
+        })
+
+        viewModel.openEmail.observe(this, Observer {
+            val dialog = MaterialAlertDialogBuilder(this)
+            dialog.setTitle("Verifica tu correo electrónico")
+            dialog.setMessage("Para usar la aplicación es necesario verificar tu correo electrónico.\n¿Deseas abrir tu aplicación de correo electrónico?")
+            dialog.setCancelable(false)
+            dialog.setPositiveButton("Abrir Correo"){_,_ ->
+                try {
+                    val intent = Intent(Intent.ACTION_MAIN).apply {
+                        addCategory(Intent.CATEGORY_APP_EMAIL)
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    }
+                    startActivity(intent)
+                }catch (e: Exception){
+                    Toast.makeText(this,"No se encontró una aplicación de correo electrónico",Toast.LENGTH_LONG).show()
+                }
+            }
+            dialog.show()
         })
 
         //Eventos a click
