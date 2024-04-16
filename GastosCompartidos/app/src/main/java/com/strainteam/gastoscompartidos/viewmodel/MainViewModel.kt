@@ -24,12 +24,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     val openEmail = SingleLiveEvent<Boolean>()
     val startActivityHome = SingleLiveEvent<Boolean>()
 
-    init {
+    fun onCreate(){
         database = FirebaseDatabase.getInstance()
         auth= FirebaseAuth.getInstance()
         dbReference = database.reference.child("User")
         sessionManager = SessionManager(context)
-
         if(sessionManager.fetchUid()!!.isNotEmpty()){startActivityHome.value = true}
     }
 
