@@ -16,6 +16,7 @@ import com.strainteam.gastoscompartidos.viewmodel.MainViewModel
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.strainteam.gastoscompartidos.R
+import com.strainteam.gastoscompartidos.view.home.Home
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
@@ -25,7 +26,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         //observadores
@@ -36,9 +36,7 @@ class MainActivity : AppCompatActivity() {
             dialog.setCancelable(false)
             val builder = dialog.create()
             builder.show()
-            bindingDialog.btnCancel.setOnClickListener {
-                builder.dismiss()
-            }
+            bindingDialog.btnCancel.setOnClickListener { builder.dismiss() }
             bindingDialog.btnCreateAccount.setOnClickListener {
                 if(bindingDialog.etUserName.text.isNotEmpty() && bindingDialog.etPassword.text.isNotEmpty() && bindingDialog.etEmail.text.isNotEmpty()){
                     viewModel.createAccountFirebase(bindingDialog.etEmail.text.toString(),bindingDialog.etPassword.text.toString(),bindingDialog.etUserName.text.toString())
@@ -79,6 +77,11 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             dialog.show()
+        })
+
+        viewModel.startActivityHome.observe(this, Observer {
+            startActivity(Intent(this, Home::class.java))
+            finish()
         })
 
         //Eventos a click

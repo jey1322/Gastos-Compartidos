@@ -22,12 +22,15 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     val messageToast = SingleLiveEvent<String>()
     val errorSigIn = SingleLiveEvent<String>()
     val openEmail = SingleLiveEvent<Boolean>()
+    val startActivityHome = SingleLiveEvent<Boolean>()
 
     init {
         database = FirebaseDatabase.getInstance()
         auth= FirebaseAuth.getInstance()
         dbReference = database.reference.child("User")
         sessionManager = SessionManager(context)
+
+        if(sessionManager.fetchUid()!!.isNotEmpty()){startActivityHome.value = true}
     }
 
     fun createAccount(){
@@ -63,6 +66,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                         errorSigIn.value = "Bienvenido ${auth.currentUser?.email}"
                         sessionManager.saveEmail(auth.currentUser?.email.toString())
                         sessionManager.saveUid(auth.currentUser?.uid.toString())
+                        startActivityHome.value = true
                     }
                     false -> {
                         errorSigIn.value = "Es necesario verificar tu correo electrónico."
