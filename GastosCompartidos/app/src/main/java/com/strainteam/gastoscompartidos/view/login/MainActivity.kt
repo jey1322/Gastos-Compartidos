@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this,"No se encontró una aplicación de correo electrónico",Toast.LENGTH_LONG).show()
                 }
             }
-            dialog.setNegativeButton("Cancelar"){_,_ ->}
+            dialog.setNegativeButton("Ahora no"){_,_ ->}
             dialog.show()
         })
 

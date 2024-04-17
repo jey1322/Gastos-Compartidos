@@ -46,6 +46,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                         val userBD = dbReference.child(user.uid.toString())
                         userBD.child("Email").setValue(email)
                         userBD.child("Name").setValue(userName)
+                        userBD.child("Disponible").setValue(true)
                         messageToast.value = "Cuenta creada, verifica tu correo electrónico."
                         openEmail.value = true
                     }else{
