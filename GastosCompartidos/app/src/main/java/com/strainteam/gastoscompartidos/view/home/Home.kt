@@ -23,9 +23,9 @@ class Home : AppCompatActivity() {
 
         viewModel.selectFragment(R.id.HomeNb)
 
-        viewModel.selectedFragment.observe(this, { fragment ->
+        viewModel.selectedFragment.observe(this) { fragment ->
             loadFragment(fragment)
-        })
+        }
 
         binding.bottomNavigation.setOnItemSelectedListener {
             viewModel.selectFragment(it.itemId)
