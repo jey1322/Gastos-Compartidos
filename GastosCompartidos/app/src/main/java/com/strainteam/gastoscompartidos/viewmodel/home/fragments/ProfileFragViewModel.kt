@@ -16,7 +16,8 @@ class ProfileFragViewModel(application: Application) : AndroidViewModel(applicat
     val emailUser = MutableLiveData<String>()
     val availableUser = MutableLiveData<Boolean>()
     val messageToast = MutableLiveData<String>()
-    val progress = SingleLiveEvent<Boolean>()
+    val progress = MutableLiveData<Boolean>()
+    val openEmail = MutableLiveData<Boolean>()
     private lateinit var auth: FirebaseAuth
     private lateinit var dbReference: DatabaseReference
     private lateinit var database: FirebaseDatabase
@@ -60,6 +61,19 @@ class ProfileFragViewModel(application: Application) : AndroidViewModel(applicat
             }else{
                 progress.value = false
                 messageToast.value = "Error al cambiar la disponibilidad: ${it.exception?.message}"
+            }
+        }
+    }
+
+    fun RestablecerContrasena(){
+        val user = auth.currentUser
+        auth.sendPasswordResetEmail(user!!.email.toString()).addOnCompleteListener {
+            if(it.isSuccessful){
+                openEmail.value = true
+                progress.value = false
+            }else{
+                progress.value = false
+                messageToast.value = "Error al enviar el correo: ${it.exception?.message}"
             }
         }
     }
