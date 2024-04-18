@@ -101,6 +101,10 @@ class ProfileFragment : Fragment() {
             disableClick()
             viewModel.RestablecerContrasena()
         }
+        
+        binding.tvEmailContact.setOnClickListener {
+            Toast.makeText(requireContext(), "Funcionalidad en desarrollo", Toast.LENGTH_SHORT).show()
+        }
 
     }
 
