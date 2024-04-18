@@ -83,4 +83,19 @@ class ProfileFragViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
+    fun deleteUserFirebase(){
+        val user = auth.currentUser
+        user!!.delete().addOnCompleteListener {
+            if(it.isSuccessful){
+                dbReference.child(user.uid).removeValue()
+                sessionManager.deleteSession()
+                closeSession.value = true
+            }else{
+                enableClick.value = true
+                progress.value = false
+                messageToast.value = "Error al eliminar la cuenta: ${it.exception?.message}"
+            }
+        }
+    }
+
 }

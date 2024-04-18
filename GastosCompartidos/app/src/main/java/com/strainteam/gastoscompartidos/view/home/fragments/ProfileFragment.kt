@@ -84,6 +84,7 @@ class ProfileFragment : Fragment() {
             binding.swAvailable.isEnabled = it
             binding.tvEmailContact.isEnabled = it
             binding.tvForgotPassword.isEnabled = it
+            binding.tvDeleteUser.isEnabled = it
         })
 
         //Eventos a click
@@ -106,6 +107,20 @@ class ProfileFragment : Fragment() {
         binding.tvEmailContact.setOnClickListener {
             Toast.makeText(requireContext(), "Funcionalidad en desarrollo", Toast.LENGTH_SHORT).show()
         }
+        
+        binding.tvDeleteUser.setOnClickListener { 
+            val dialog = MaterialAlertDialogBuilder(requireContext())
+            dialog.setTitle("Eliminar cuenta")
+            dialog.setMessage("¿Estás seguro de que deseas eliminar tu cuenta?")
+            dialog.setCancelable(false)
+            dialog.setPositiveButton("Eliminar") { _, _ ->
+                binding.pbProfile.visibility = View.VISIBLE
+                disableClick()
+                viewModel.deleteUserFirebase()
+            }
+            dialog.setNegativeButton("Cancelar") { _, _ ->}
+            dialog.show()
+        }
 
     }
 
@@ -113,6 +128,7 @@ class ProfileFragment : Fragment() {
         binding.swAvailable.isEnabled = false
         binding.tvEmailContact.isEnabled = false
         binding.tvForgotPassword.isEnabled = false
+        binding.tvDeleteUser.isEnabled = false
     }
 
 }

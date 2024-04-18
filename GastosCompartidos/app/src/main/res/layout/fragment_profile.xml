@@ -43,7 +43,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvProfile"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             android:layout_marginStart="10dp"/>
 
         <TextView
@@ -81,7 +81,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -91,7 +91,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Configuracion de la cuenta"
+                android:text="Configuración de la cuenta"
                 android:textColor="@color/text"
                 android:textSize="15dp"
                 android:textStyle="bold"
@@ -131,7 +131,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="Cambiar Correo Electrónico"
+                android:text="Cambiar correo electrónico"
                 android:drawableStart="@drawable/ic_email_contact"
                 android:gravity="center_vertical"
                 android:drawablePadding="5dp"
@@ -142,6 +142,21 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/tvEmailContact"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Eliminar mi cuenta"
+                android:drawableStart="@drawable/ic_person_off"
+                android:gravity="center_vertical"
+                android:drawablePadding="5dp"
+                android:paddingHorizontal="10dp"
+                android:background="@drawable/edittext"
+                android:textColor="@color/Background"
+                android:textSize="13dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tvDeleteUser"/>
 
             <androidx.constraintlayout.utils.widget.MotionButton
                 android:layout_width="200dp"
