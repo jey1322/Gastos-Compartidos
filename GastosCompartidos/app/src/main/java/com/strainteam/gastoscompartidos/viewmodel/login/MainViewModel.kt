@@ -68,12 +68,17 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                         sessionManager.saveEmail(auth.currentUser?.email.toString())
                         sessionManager.saveUid(auth.currentUser?.uid.toString())
                         startActivityHome.value = true
-                    }
-                    false -> {
-                        errorSigIn.value = "Es necesario verificar tu correo electrónico."
-                        openEmail.value = true
-                    }
-                    null -> TODO()
+                    } false -> {
+                        val user = auth.currentUser
+                        user!!.sendEmailVerification().addOnCompleteListener {
+                            if(it.isSuccessful){
+                                errorSigIn.value = "Es necesario verificar tu correo electrónico."
+                                openEmail.value = true
+                            }else{
+                                errorSigIn.value = "Error al verificar la cuenta: ${it.exception?.message}"
+                            }
+                        }
+                    } null -> TODO()
                 }
             }else{
                 errorSigIn.value = "Error al iniciar sesión: ${it.exception?.message}"
@@ -84,7 +89,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     fun forgotPasswordFirebase(email: String){
         auth.sendPasswordResetEmail(email).addOnCompleteListener {
             if(it.isSuccessful){
-                messageToast.value = "Se ha enviado un correo para restablecer tu contraseña."
+                messageToast.value = "Se ha enviado un correo a tu cuenta para restablecer tu contraseña."
             }else{
                 messageToast.value = "Error al enviar el correo: ${it.exception?.message}"
             }
