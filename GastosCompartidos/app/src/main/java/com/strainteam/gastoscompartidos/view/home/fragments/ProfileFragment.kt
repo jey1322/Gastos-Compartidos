@@ -79,6 +79,12 @@ class ProfileFragment : Fragment() {
             dialog.show()
         })
 
+        viewModel.enableClick.observe(viewLifecycleOwner, Observer {
+            binding.swAvailable.isEnabled = it
+            binding.tvEmailContact.isEnabled = it
+            binding.tvForgotPassword.isEnabled = it
+        })
+
         //Eventos a click
         binding.btCloseSession.setOnClickListener {
             viewModel.closeSession()
@@ -86,14 +92,22 @@ class ProfileFragment : Fragment() {
 
         binding.swAvailable.setOnCheckedChangeListener { _, isChecked ->
             binding.pbProfile.visibility = View.VISIBLE
+            disableClick()
             viewModel.changeAvailableUser(isChecked)
         }
 
         binding.tvForgotPassword.setOnClickListener {
             binding.pbProfile.visibility = View.VISIBLE
+            disableClick()
             viewModel.RestablecerContrasena()
         }
 
+    }
+
+    private fun disableClick(){
+        binding.swAvailable.isEnabled = false
+        binding.tvEmailContact.isEnabled = false
+        binding.tvForgotPassword.isEnabled = false
     }
 
 }
