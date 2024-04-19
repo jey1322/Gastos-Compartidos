@@ -12,11 +12,59 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvProfile"
-        android:text="Inicio"
+        android:text="Gastos Compartidos"
         android:textColor="@color/text"
         android:textSize="20dp"
         android:textStyle="bold"
         android:layout_marginTop="20dp"
         android:layout_marginStart="10dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/etSearch"
+        android:hint="Buscar evento"
+        android:textColor="@color/text"
+        android:textSize="13dp"
+        android:background="@drawable/edittext"
+        android:paddingHorizontal="10dp"
+        android:drawableStart="@drawable/ic_search"
+        android:drawablePadding="5dp"
+        android:inputType="text"
+        android:imeOptions="actionSearch"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="10dp"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Listado de eventos"
+            android:textColor="@color/text"
+            android:textSize="15dp"
+            android:id="@+id/tvEventos"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvNuevoEvento"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nuevo evento"
+            android:textColor="@color/Background"
+            android:textSize="15dp"
+            android:id="@+id/tvNuevoEvento"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </LinearLayout>
