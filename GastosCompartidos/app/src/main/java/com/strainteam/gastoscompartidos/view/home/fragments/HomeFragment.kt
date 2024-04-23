@@ -67,6 +67,9 @@ class HomeFragment : Fragment() {
                 val bindingSheet = SheetSearchUserBinding.inflate(layoutInflater)
                 builder.setContentView(bindingSheet.root)
                 builder.show()
+                bindingSheet.tvCerrar.setOnClickListener {
+                    builder.dismiss()
+                }
             }
         })
 
