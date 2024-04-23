@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.strainteam.gastoscompartidos.preferens.SessionManager
+import com.strainteam.gastoscompartidos.viewmodel.utils.SingleLiveEvent
 import java.util.concurrent.atomic.AtomicBoolean
 
 class MainViewModel(application: Application): AndroidViewModel(application) {
@@ -94,27 +95,5 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                 messageToast.value = "Error al enviar el correo: ${it.exception?.message}"
             }
         }
-    }
-}
-
-class SingleLiveEvent<T> : MutableLiveData<T>() {
-
-    private val pending = AtomicBoolean(false)
-
-    override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
-        super.observe(owner, Observer<T> { t ->
-            if (pending.compareAndSet(true, false)) {
-                observer.onChanged(t)
-            }
-        })
-    }
-
-    override fun setValue(t: T?) {
-        pending.set(true)
-        super.setValue(t)
-    }
-
-    fun call(t: T) {
-        value = t
     }
 }

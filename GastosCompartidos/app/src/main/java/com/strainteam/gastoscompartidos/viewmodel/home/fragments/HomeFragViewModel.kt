@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.strainteam.gastoscompartidos.viewmodel.utils.SingleLiveEvent
 
 class HomeFragViewModel(application: Application): AndroidViewModel(application) {
     private val context = getApplication<Application>().applicationContext
@@ -13,10 +14,10 @@ class HomeFragViewModel(application: Application): AndroidViewModel(application)
     private lateinit var dbMotivoRef: DatabaseReference
     private lateinit var dbCuotaRef: DatabaseReference
     private lateinit var database: FirebaseDatabase
-    val motivoList = MutableLiveData<ArrayList<String>>()
-    val cuotaList = MutableLiveData<ArrayList<String>>()
-    val messageToast = MutableLiveData<String>()
-    val showDialogEvent = MutableLiveData<Boolean>()
+    val motivoList = SingleLiveEvent<ArrayList<String>>()
+    val cuotaList = SingleLiveEvent<ArrayList<String>>()
+    val messageToast = SingleLiveEvent<String>()
+    val showDialogEvent = SingleLiveEvent<Boolean>()
 
     init {
         database = FirebaseDatabase.getInstance()

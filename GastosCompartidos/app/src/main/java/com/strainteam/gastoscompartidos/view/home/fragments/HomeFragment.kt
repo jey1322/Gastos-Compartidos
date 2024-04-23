@@ -9,10 +9,12 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.strainteam.gastoscompartidos.R
 import com.strainteam.gastoscompartidos.databinding.DialogNewEventsBinding
 import com.strainteam.gastoscompartidos.databinding.FragmentHomeBinding
+import com.strainteam.gastoscompartidos.databinding.SheetSearchUserBinding
 import com.strainteam.gastoscompartidos.viewmodel.home.fragments.HomeFragViewModel
 
 
@@ -59,6 +61,12 @@ class HomeFragment : Fragment() {
             builder.show()
             bindingDialog.btnCancel.setOnClickListener {
                 builder.dismiss()
+            }
+            bindingDialog.tvAgregarParticipantes.setOnClickListener {
+                val builder = BottomSheetDialog(requireContext())
+                val bindingSheet = SheetSearchUserBinding.inflate(layoutInflater)
+                builder.setContentView(bindingSheet.root)
+                builder.show()
             }
         })
 

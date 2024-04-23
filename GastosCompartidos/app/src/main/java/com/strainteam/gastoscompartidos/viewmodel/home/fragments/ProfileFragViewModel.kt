@@ -2,23 +2,22 @@ package com.strainteam.gastoscompartidos.viewmodel.home.fragments
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.strainteam.gastoscompartidos.preferens.SessionManager
-import com.strainteam.gastoscompartidos.viewmodel.login.SingleLiveEvent
+import com.strainteam.gastoscompartidos.viewmodel.utils.SingleLiveEvent
 
 class ProfileFragViewModel(application: Application) : AndroidViewModel(application) {
     private val context = getApplication<Application>().applicationContext
-    val closeSession = MutableLiveData<Boolean>()
-    val nameUser = MutableLiveData<String>()
-    val emailUser = MutableLiveData<String>()
-    val availableUser = MutableLiveData<Boolean>()
-    val messageToast = MutableLiveData<String>()
-    val progress = MutableLiveData<Boolean>()
-    val openEmail = MutableLiveData<Boolean>()
-    val enableClick = MutableLiveData<Boolean>()
+    val closeSession = SingleLiveEvent<Boolean>()
+    val nameUser = SingleLiveEvent<String>()
+    val emailUser = SingleLiveEvent<String>()
+    val availableUser = SingleLiveEvent<Boolean>()
+    val messageToast = SingleLiveEvent<String>()
+    val progress = SingleLiveEvent<Boolean>()
+    val openEmail = SingleLiveEvent<Boolean>()
+    val enableClick = SingleLiveEvent<Boolean>()
     private lateinit var auth: FirebaseAuth
     private lateinit var dbReference: DatabaseReference
     private lateinit var database: FirebaseDatabase
