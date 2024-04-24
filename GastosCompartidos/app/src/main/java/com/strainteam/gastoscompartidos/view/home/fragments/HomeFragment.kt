@@ -50,6 +50,13 @@ class HomeFragment : Fragment() {
             Toast.makeText(requireContext(),it,Toast.LENGTH_LONG).show()
         })
 
+        viewModel.hideProgress.observe(viewLifecycleOwner, Observer {
+            if(it){
+                binding.progress.visibility = View.GONE
+                binding.tvNuevoEvento.isEnabled = true
+            }
+        })
+
         viewModel.showDialogEvent.observe(viewLifecycleOwner, Observer {
             val dialog = MaterialAlertDialogBuilder(requireContext())
             val bindingDialog = DialogNewEventsBinding.inflate(layoutInflater)
@@ -75,6 +82,8 @@ class HomeFragment : Fragment() {
 
         //evento a click
         binding.tvNuevoEvento.setOnClickListener {
+            binding.tvNuevoEvento.isEnabled = false
+            binding.progress.visibility = View.VISIBLE
             viewModel.getTipoCuota()
         }
     }

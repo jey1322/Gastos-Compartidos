@@ -18,6 +18,7 @@ class HomeFragViewModel(application: Application): AndroidViewModel(application)
     val cuotaList = SingleLiveEvent<ArrayList<String>>()
     val messageToast = SingleLiveEvent<String>()
     val showDialogEvent = SingleLiveEvent<Boolean>()
+    val hideProgress = SingleLiveEvent<Boolean>()
 
     init {
         database = FirebaseDatabase.getInstance()
@@ -34,8 +35,10 @@ class HomeFragViewModel(application: Application): AndroidViewModel(application)
                     motivosList.add("${motivo.key} - ${motivo.value}")
                 }
                 motivoList.value = motivosList
+                hideProgress.value = true
                 showDialogEvent.value = true
             }else{
+                hideProgress.value = true
                 messageToast.value = "Error motivos de eventos: ${it.exception?.message}"
             }
         }
@@ -51,6 +54,7 @@ class HomeFragViewModel(application: Application): AndroidViewModel(application)
                 cuotaList.value = cuotasList
                 getMotivosEventos()
             }else{
+                hideProgress.value = true
                 messageToast.value = "Error tipo de cuota: ${it.exception?.message}"
             }
         }
