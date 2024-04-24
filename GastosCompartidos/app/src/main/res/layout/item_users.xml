@@ -16,13 +16,14 @@
             android:layout_height="wrap_content"
             tools:text="jpaniagua@isa1890.com"
             android:id="@+id/tvEmail"
-            android:textColor="@color/text"
+            android:textColor="@color/Background"
             android:textSize="13dp"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvName"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginHorizontal="10dp"
-            app:layout_constraintEnd_toStartOf="@id/tvAvailability"
-            android:layout_marginTop="10dp"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintEnd_toStartOf="@id/tvAvailability"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,9 +32,8 @@
             android:id="@+id/tvAvailability"
             android:textColor="@color/text"
             android:textSize="13dp"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvName"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"/>
 
         <TextView
@@ -43,12 +43,12 @@
             android:textColor="@color/text"
             android:textSize="15dp"
             android:id="@+id/tvName"
-            app:layout_constraintTop_toBottomOf="@id/tvEmail"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginHorizontal="10dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
