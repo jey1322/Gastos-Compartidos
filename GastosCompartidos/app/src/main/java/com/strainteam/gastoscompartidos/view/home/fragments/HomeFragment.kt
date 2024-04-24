@@ -6,15 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.strainteam.gastoscompartidos.R
+import com.strainteam.gastoscompartidos.adapter.ItemUserAdapter
 import com.strainteam.gastoscompartidos.databinding.DialogNewEventsBinding
 import com.strainteam.gastoscompartidos.databinding.FragmentHomeBinding
 import com.strainteam.gastoscompartidos.databinding.SheetSearchUserBinding
+import com.strainteam.gastoscompartidos.model.User
 import com.strainteam.gastoscompartidos.viewmodel.home.fragments.HomeFragViewModel
 
 
@@ -23,6 +27,8 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeFragViewModel by viewModels()
     private var motivoList = ArrayList<String>()
     private var cuotaList = ArrayList<String>()
+    private lateinit var adapter : ItemUserAdapter
+    private var mUser : MutableList<User> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +63,12 @@ class HomeFragment : Fragment() {
             }
         })
 
+        viewModel.userList.observe(viewLifecycleOwner, Observer {
+            mUser.clear()
+            mUser.addAll(it)
+            adapter.notifyDataSetChanged()
+        })
+
         viewModel.showDialogEvent.observe(viewLifecycleOwner, Observer {
             val dialog = MaterialAlertDialogBuilder(requireContext())
             val bindingDialog = DialogNewEventsBinding.inflate(layoutInflater)
@@ -73,10 +85,17 @@ class HomeFragment : Fragment() {
                 val builder = BottomSheetDialog(requireContext())
                 val bindingSheet = SheetSearchUserBinding.inflate(layoutInflater)
                 builder.setContentView(bindingSheet.root)
+
+                bindingSheet.rvUser.layoutManager = LinearLayoutManager(requireContext())
+                adapter = ItemUserAdapter(requireContext(), mUser)
+                bindingSheet.rvUser.adapter = adapter
+                viewModel.getUserExceptMe()
+
                 builder.show()
                 bindingSheet.tvCerrar.setOnClickListener {
                     builder.dismiss()
                 }
+
             }
         })
 
