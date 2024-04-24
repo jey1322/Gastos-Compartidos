@@ -6,19 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.strainteam.gastoscompartidos.R
-import com.strainteam.gastoscompartidos.adapter.ItemUserAdapter
 import com.strainteam.gastoscompartidos.databinding.DialogNewEventsBinding
 import com.strainteam.gastoscompartidos.databinding.FragmentHomeBinding
 import com.strainteam.gastoscompartidos.databinding.SheetSearchUserBinding
-import com.strainteam.gastoscompartidos.model.User
+import com.strainteam.gastoscompartidos.utils.AnimationRecycler
 import com.strainteam.gastoscompartidos.viewmodel.home.fragments.HomeFragViewModel
 
 
@@ -91,6 +91,22 @@ class HomeFragment : Fragment() {
                     builder.dismiss()
                 }
 
+                bindingSheet.etSearch.addTextChangedListener {
+                    if(it.toString().isEmpty()){
+                        bindingSheet.rvUser.smoothScrollToPositionWithAnimation(0)
+                    }else{
+                        for(i in viewModel.userList.value!!.indices){
+                            if(viewModel.userList.value!![i].nombre.contains(it.toString(),true)){
+                                bindingSheet.rvUser.smoothScrollToPositionWithAnimation(i)
+                                break
+                            }else if(viewModel.userList.value!![i].email.contains(it.toString(),true)){
+                                bindingSheet.rvUser.smoothScrollToPositionWithAnimation(i)
+                                break
+                            }
+                        }
+                    }
+                }
+
             }
         })
 
@@ -100,6 +116,12 @@ class HomeFragment : Fragment() {
             binding.progress.visibility = View.VISIBLE
             viewModel.getTipoCuota()
         }
+    }
+
+    private fun RecyclerView.smoothScrollToPositionWithAnimation(position: Int) {
+        val smoothScroller = AnimationRecycler(context)
+        smoothScroller.targetPosition = position
+        layoutManager?.startSmoothScroll(smoothScroller)
     }
 
 }
