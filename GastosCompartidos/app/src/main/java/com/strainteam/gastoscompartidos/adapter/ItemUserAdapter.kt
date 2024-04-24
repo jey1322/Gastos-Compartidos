@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.strainteam.gastoscompartidos.R
 import com.strainteam.gastoscompartidos.databinding.ItemUsersBinding
 import com.strainteam.gastoscompartidos.model.User
 
@@ -14,6 +15,16 @@ class ItemUserAdapter(private val context: Context, private val mUser : MutableL
             binding.tvName.text = user.nombre
             binding.tvEmail.text = user.email
             binding.tvAvailability.text = if(user.disponible){"Disponible"}else{"No Disponible"}
+
+            binding.root.setOnClickListener {
+                if(user.select){
+                    binding.root.setBackgroundResource(R.drawable.edittext)
+                    user.select = false
+                }else{
+                    binding.root.setBackgroundResource(R.drawable.button_cancel)
+                    user.select = true
+                }
+            }
         }
     }
 
