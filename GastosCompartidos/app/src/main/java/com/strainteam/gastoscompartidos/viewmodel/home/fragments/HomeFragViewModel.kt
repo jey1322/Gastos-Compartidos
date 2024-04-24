@@ -2,9 +2,11 @@ package com.strainteam.gastoscompartidos.viewmodel.home.fragments
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.strainteam.gastoscompartidos.adapter.ItemUserAdapter
 import com.strainteam.gastoscompartidos.model.User
 import com.strainteam.gastoscompartidos.viewmodel.utils.SingleLiveEvent
 
@@ -20,7 +22,8 @@ class HomeFragViewModel(application: Application): AndroidViewModel(application)
     val messageToast = SingleLiveEvent<String>()
     val showDialogEvent = SingleLiveEvent<Boolean>()
     val hideProgress = SingleLiveEvent<Boolean>()
-    val userList = SingleLiveEvent<List<User>>()
+    val userList = MutableLiveData<MutableList<User>>()
+    val userAdapter = ItemUserAdapter(context, mutableListOf())
 
     init {
         database = FirebaseDatabase.getInstance()
@@ -73,6 +76,7 @@ class HomeFragViewModel(application: Application): AndroidViewModel(application)
                     }
                 }
                 this.userList.value = userList
+                userAdapter.updateData(userList)
             }else{
                 messageToast.value = "Error obtener usuarios: ${it.exception?.message}"
             }

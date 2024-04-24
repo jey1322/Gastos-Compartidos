@@ -27,8 +27,6 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeFragViewModel by viewModels()
     private var motivoList = ArrayList<String>()
     private var cuotaList = ArrayList<String>()
-    private lateinit var adapter : ItemUserAdapter
-    private var mUser : MutableList<User> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,9 +62,7 @@ class HomeFragment : Fragment() {
         })
 
         viewModel.userList.observe(viewLifecycleOwner, Observer {
-            mUser.clear()
-            mUser.addAll(it)
-            adapter.notifyDataSetChanged()
+            viewModel.userAdapter.notifyDataSetChanged()
         })
 
         viewModel.showDialogEvent.observe(viewLifecycleOwner, Observer {
@@ -87,8 +83,7 @@ class HomeFragment : Fragment() {
                 builder.setContentView(bindingSheet.root)
 
                 bindingSheet.rvUser.layoutManager = LinearLayoutManager(requireContext())
-                adapter = ItemUserAdapter(requireContext(), mUser)
-                bindingSheet.rvUser.adapter = adapter
+                bindingSheet.rvUser.adapter = viewModel.userAdapter
                 viewModel.getUserExceptMe()
 
                 builder.show()

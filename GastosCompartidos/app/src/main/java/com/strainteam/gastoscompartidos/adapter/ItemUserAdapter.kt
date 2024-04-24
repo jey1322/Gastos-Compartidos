@@ -28,4 +28,10 @@ class ItemUserAdapter(private val context: Context, private val mUser : MutableL
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         holder.bind(mUser[position])
     }
+
+    fun updateData(newUsers: List<User>) {
+        mUser.clear()
+        mUser.addAll(newUsers)
+        notifyDataSetChanged()
+    }
 }
