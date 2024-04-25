@@ -90,6 +90,17 @@ class HomeFragment : Fragment() {
                 bindingSheet.tvCerrar.setOnClickListener {
                     builder.dismiss()
                 }
+                bindingSheet.btnCancel.setOnClickListener {
+                    builder.dismiss()
+                }
+                bindingSheet.btnAdd.setOnClickListener {
+                    val list = viewModel.userList.value!!.filter { it.select }
+                    if(list.isNotEmpty()){
+                        viewModel.migrateUserAUserSelect(list)
+                    }
+                    bindingDialog.tvTotalParticipante.text = "Total: "+viewModel.userSelectList.value!!.size.toString()
+                    builder.dismiss()
+                }
 
                 bindingSheet.etSearch.addTextChangedListener {
                     if(it.toString().isEmpty()){

@@ -8,6 +8,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.strainteam.gastoscompartidos.adapter.ItemUserAdapter
 import com.strainteam.gastoscompartidos.model.User
+import com.strainteam.gastoscompartidos.model.UserSelect
 import com.strainteam.gastoscompartidos.viewmodel.utils.SingleLiveEvent
 
 class HomeFragViewModel(application: Application): AndroidViewModel(application) {
@@ -23,6 +24,7 @@ class HomeFragViewModel(application: Application): AndroidViewModel(application)
     val showDialogEvent = SingleLiveEvent<Boolean>()
     val hideProgress = SingleLiveEvent<Boolean>()
     val userList = MutableLiveData<MutableList<User>>()
+    val userSelectList = MutableLiveData<MutableList<UserSelect>>()
     val userAdapter = ItemUserAdapter(context, mutableListOf())
 
     init {
@@ -72,7 +74,7 @@ class HomeFragViewModel(application: Application): AndroidViewModel(application)
                 val userList = ArrayList<User>()
                 for (user in it.result!!.children){
                     if(user.key != auth.currentUser?.uid){
-                        userList.add(User(user.child("Disponible").value as Boolean, user.child("Name").value.toString(), user.child("Email").value.toString()))
+                        userList.add(User(user.key.toString(), user.child("Disponible").value as Boolean, user.child("Name").value.toString(), user.child("Email").value.toString()))
                     }
                 }
                 this.userList.value = userList
@@ -81,6 +83,17 @@ class HomeFragViewModel(application: Application): AndroidViewModel(application)
                 messageToast.value = "Error obtener usuarios: ${it.exception?.message}"
             }
         }
+    }
+
+    fun migrateUserAUserSelect(list: List<User>){
+        val userSelectL = ArrayList<UserSelect>()
+        for (user in list){
+            val userSelect = UserSelect(user.id, user.nombre, user.email)
+            if(!userSelectL.contains(userSelect)){
+                userSelectL.add(userSelect)
+            }
+        }
+        userSelectList.value = userSelectL
     }
 
 }

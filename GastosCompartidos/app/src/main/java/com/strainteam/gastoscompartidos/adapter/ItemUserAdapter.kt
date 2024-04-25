@@ -17,6 +17,11 @@ class ItemUserAdapter(private val context: Context, private val mUser : MutableL
             binding.tvEmail.text = user.email
             binding.tvAvailability.text = if(user.disponible){"Disponible"}else{"No Disponible"}
 
+            if(user.select){
+                binding.root.setBackgroundResource(R.drawable.button_cancel)
+            }else{
+                binding.root.setBackgroundResource(R.drawable.edittext)
+            }
             binding.root.setOnClickListener {
                 if (user.disponible){
                     if(user.select){
