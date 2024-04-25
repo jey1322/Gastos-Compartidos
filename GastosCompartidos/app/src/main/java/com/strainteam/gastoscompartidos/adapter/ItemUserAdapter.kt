@@ -3,6 +3,7 @@ package com.strainteam.gastoscompartidos.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.strainteam.gastoscompartidos.R
 import com.strainteam.gastoscompartidos.databinding.ItemUsersBinding
@@ -17,12 +18,16 @@ class ItemUserAdapter(private val context: Context, private val mUser : MutableL
             binding.tvAvailability.text = if(user.disponible){"Disponible"}else{"No Disponible"}
 
             binding.root.setOnClickListener {
-                if(user.select){
-                    binding.root.setBackgroundResource(R.drawable.edittext)
-                    user.select = false
+                if (user.disponible){
+                    if(user.select){
+                        binding.root.setBackgroundResource(R.drawable.edittext)
+                        user.select = false
+                    }else{
+                        binding.root.setBackgroundResource(R.drawable.button_cancel)
+                        user.select = true
+                    }
                 }else{
-                    binding.root.setBackgroundResource(R.drawable.button_cancel)
-                    user.select = true
+                    Toast.makeText(context,"${user.nombre.split(" ")[0]} No esta disponible para eventos", Toast.LENGTH_SHORT).show()
                 }
             }
         }
