@@ -119,6 +119,16 @@ class HomeFragment : Fragment() {
                 }
 
             }
+
+            bindingDialog.btnCreateEvento.setOnClickListener {
+                if(bindingDialog.etEvento.text.toString().isNotEmpty() /*&& bindingDialog.etFechaEvento.text.toString().isNotEmpty()*/ && bindingDialog.spTipoEvento.selectedItem.toString().isNotEmpty() && bindingDialog.spTipoCuota.selectedItem.toString().isNotEmpty() /*&& viewModel.userSelectList.value!!.size != 0*/){
+                    viewModel.createEventos(Evento = bindingDialog.etEvento.text.toString(), Fecha = "28/04/2024"/*bindingDialog.etFechaEvento.text.toString()*/, TipoEvento = bindingDialog.spTipoEvento.selectedItem.toString(), TipoCuota = bindingDialog.spTipoCuota.selectedItem.toString())
+                    builder.dismiss()
+                }else {
+                    Toast.makeText(requireContext(), "Todos los campos son obligatorios", Toast.LENGTH_LONG).show()
+                }
+            }
+
         })
 
         //evento a click

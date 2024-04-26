@@ -17,6 +17,7 @@ class HomeFragViewModel(application: Application): AndroidViewModel(application)
     private lateinit var dbMotivoRef: DatabaseReference
     private lateinit var dbCuotaRef: DatabaseReference
     private lateinit var dbUserRef: DatabaseReference
+    private lateinit var dbEventoRef: DatabaseReference
     private lateinit var database: FirebaseDatabase
     val motivoList = SingleLiveEvent<ArrayList<String>>()
     val cuotaList = SingleLiveEvent<ArrayList<String>>()
@@ -26,6 +27,7 @@ class HomeFragViewModel(application: Application): AndroidViewModel(application)
     val userList = MutableLiveData<MutableList<User>>()
     val userSelectList = MutableLiveData<MutableList<UserSelect>>()
     val userAdapter = ItemUserAdapter(context, mutableListOf())
+    val nameUser = MutableLiveData<String>()
 
     init {
         database = FirebaseDatabase.getInstance()
@@ -33,6 +35,8 @@ class HomeFragViewModel(application: Application): AndroidViewModel(application)
         dbMotivoRef = database.reference.child("MotivosEventos")
         dbCuotaRef = database.reference.child("TipoCuota")
         dbUserRef = database.reference.child("User")
+        dbEventoRef = database.reference.child("Eventos")
+        getNameUser()
     }
 
     fun getMotivosEventos(){
@@ -85,15 +89,42 @@ class HomeFragViewModel(application: Application): AndroidViewModel(application)
         }
     }
 
+    fun getNameUser(){
+        val user = auth.currentUser
+        dbUserRef.child(user!!.uid).get().addOnCompleteListener {
+            if(it.isSuccessful){
+                nameUser.value = it.result!!.child("Name").value.toString()
+            }else{
+                messageToast.value = "Error obtener usuario: ${it.exception?.message}"
+            }
+        }
+    }
+
     fun migrateUserAUserSelect(list: List<User>){
         val userSelectL = ArrayList<UserSelect>()
         for (user in list){
-            val userSelect = UserSelect(user.id, user.nombre, user.email)
+            val userSelect = UserSelect(user.id, user.nombre, user.email, 0,"")
             if(!userSelectL.contains(userSelect)){
                 userSelectL.add(userSelect)
             }
         }
+        userSelectL.add(UserSelect(auth.currentUser?.uid.toString(), nameUser.value.toString(), auth.currentUser?.email.toString(), 0, ""))
         userSelectList.value = userSelectL
+    }
+
+    fun createEventos(Evento: String, Fecha: String, TipoEvento: String, TipoCuota: String){
+        val evento = dbEventoRef.push()
+        evento.child("Evento").setValue(Evento)
+        evento.child("Fecha").setValue(Fecha)
+        evento.child("TipoEvento").setValue(TipoEvento)
+        evento.child("TipoCuota").setValue(TipoCuota)
+        evento.child("OrganizadorId").setValue(auth.currentUser?.uid)
+        evento.child("OrganizadorName").setValue(nameUser.value)
+        evento.child("OrganizadorEmail").setValue(auth.currentUser?.email)
+        evento.child("BancoOrganizador").setValue("")
+        evento.child("CuentaOrganizador").setValue("")
+        evento.child("Participantes").setValue(userSelectList.value)
+        messageToast.value = "Evento creado"
     }
 
 }
