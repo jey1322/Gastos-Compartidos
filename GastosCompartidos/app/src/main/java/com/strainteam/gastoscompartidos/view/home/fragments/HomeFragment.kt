@@ -19,6 +19,7 @@ import com.strainteam.gastoscompartidos.databinding.DialogNewEventsBinding
 import com.strainteam.gastoscompartidos.databinding.FragmentHomeBinding
 import com.strainteam.gastoscompartidos.databinding.SheetSearchUserBinding
 import com.strainteam.gastoscompartidos.utils.AnimationRecycler
+import com.strainteam.gastoscompartidos.utils.CalendarComplFragment
 import com.strainteam.gastoscompartidos.viewmodel.home.fragments.HomeFragViewModel
 
 
@@ -77,6 +78,11 @@ class HomeFragment : Fragment() {
             bindingDialog.btnCancel.setOnClickListener {
                 builder.dismiss()
             }
+
+            bindingDialog.etFechaEvento.setOnClickListener {
+                CalendarComplFragment { bindingDialog.etFechaEvento.setText(it) }.show(requireActivity().supportFragmentManager, "datePicker")
+            }
+
             bindingDialog.tvAgregarParticipantes.setOnClickListener {
                 val builder = BottomSheetDialog(requireContext())
                 val bindingSheet = SheetSearchUserBinding.inflate(layoutInflater)
@@ -121,8 +127,8 @@ class HomeFragment : Fragment() {
             }
 
             bindingDialog.btnCreateEvento.setOnClickListener {
-                if(bindingDialog.etEvento.text.toString().isNotEmpty() /*&& bindingDialog.etFechaEvento.text.toString().isNotEmpty()*/ && bindingDialog.spTipoEvento.selectedItem.toString().isNotEmpty() && bindingDialog.spTipoCuota.selectedItem.toString().isNotEmpty() /*&& viewModel.userSelectList.value!!.size != 0*/){
-                    viewModel.createEventos(Evento = bindingDialog.etEvento.text.toString(), Fecha = "28/04/2024"/*bindingDialog.etFechaEvento.text.toString()*/, TipoEvento = bindingDialog.spTipoEvento.selectedItem.toString(), TipoCuota = bindingDialog.spTipoCuota.selectedItem.toString())
+                if(bindingDialog.etEvento.text.toString().isNotEmpty() && bindingDialog.etFechaEvento.text.toString().isNotEmpty() && bindingDialog.spTipoEvento.selectedItem.toString().isNotEmpty() && bindingDialog.spTipoCuota.selectedItem.toString().isNotEmpty() /*&& viewModel.userSelectList.value!!.size != 0*/){
+                    viewModel.createEventos(Evento = bindingDialog.etEvento.text.toString(), Fecha = bindingDialog.etFechaEvento.text.toString(), TipoEvento = bindingDialog.spTipoEvento.selectedItem.toString(), TipoCuota = bindingDialog.spTipoCuota.selectedItem.toString())
                     builder.dismiss()
                 }else {
                     Toast.makeText(requireContext(), "Todos los campos son obligatorios", Toast.LENGTH_LONG).show()

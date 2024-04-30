@@ -32,7 +32,6 @@ class Home : AppCompatActivity() {
             true
         }
 
-
     }
 
     private fun loadFragment(fragment: Fragment){
