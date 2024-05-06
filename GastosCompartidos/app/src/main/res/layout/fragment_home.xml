@@ -50,7 +50,7 @@
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="5dp"
         android:inputType="text"
-        android:imeOptions="actionSearch"
+        android:imeOptions="actionDone"
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="10dp"/>
 
