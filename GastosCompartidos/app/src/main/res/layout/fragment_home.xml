@@ -90,15 +90,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/rvEventos"
-        android:visibility="gone"
-        android:layout_marginTop="10dp"/>
+        android:visibility="visible"
+        tools:listitem="@layout/item_eventos"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"/>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:src="@drawable/nodata"
         android:id="@+id/ivNoData"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_marginTop="30dp"
         android:layout_marginHorizontal="10dp"/>
 
@@ -109,7 +111,7 @@
         android:textColor="@color/text"
         android:textSize="13dp"
         android:id="@+id/tvNoData"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="10dp"
         android:layout_gravity="center_horizontal"/>

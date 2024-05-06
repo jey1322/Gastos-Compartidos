@@ -6,7 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.strainteam.gastoscompartidos.adapter.ItemEventos
 import com.strainteam.gastoscompartidos.adapter.ItemUserAdapter
+import com.strainteam.gastoscompartidos.model.Eventos
 import com.strainteam.gastoscompartidos.model.User
 import com.strainteam.gastoscompartidos.model.UserSelect
 import com.strainteam.gastoscompartidos.viewmodel.utils.SingleLiveEvent
@@ -27,7 +29,9 @@ class HomeFragViewModel(application: Application): AndroidViewModel(application)
     val userList = MutableLiveData<MutableList<User>>()
     val userSelectList = MutableLiveData<MutableList<UserSelect>>()
     val userAdapter = ItemUserAdapter(context, mutableListOf())
+    val eventosAdapter = ItemEventos(context, mutableListOf())
     val nameUser = MutableLiveData<String>()
+    val eventos = MutableLiveData<MutableList<Eventos>>()
 
     init {
         database = FirebaseDatabase.getInstance()
@@ -44,7 +48,7 @@ class HomeFragViewModel(application: Application): AndroidViewModel(application)
             if(it.isSuccessful){
                 val motivosList = ArrayList<String>()
                 for (motivo in it.result!!.children){
-                    motivosList.add("${motivo.key} - ${motivo.value}")
+                    motivosList.add(motivo.value.toString())
                 }
                 motivoList.value = motivosList
                 hideProgress.value = true
@@ -61,7 +65,7 @@ class HomeFragViewModel(application: Application): AndroidViewModel(application)
             if(it.isSuccessful){
                 val cuotasList = ArrayList<String>()
                 for (cuota in it.result!!.children){
-                    cuotasList.add("${cuota.key} - ${cuota.value}")
+                    cuotasList.add(cuota.value.toString())
                 }
                 cuotaList.value = cuotasList
                 getMotivosEventos()
@@ -125,6 +129,28 @@ class HomeFragViewModel(application: Application): AndroidViewModel(application)
         evento.child("CuentaOrganizador").setValue("")
         evento.child("Participantes").setValue(userSelectList.value)
         messageToast.value = "Evento creado"
+        getEventos()
+    }
+
+    fun getEventos(){
+        dbEventoRef.get().addOnCompleteListener {
+            if(it.isSuccessful){
+                val eventosList = ArrayList<Eventos>()
+                for (evento in it.result!!.children){
+                    val participantesList = ArrayList<Eventos.Participantes>()
+                    for (participante in evento.child("Participantes").children){
+                        participantesList.add(Eventos.Participantes(participante.child("id").value.toString(), participante.child("email").value.toString(), participante.child("name").value.toString(), participante.child("pedido").value.toString(), participante.child("totalDepositar").value.toString().toInt()))
+                    }
+                    eventosList.add(Eventos(evento.key.toString(), evento.child("Evento").value.toString(), evento.child("Fecha").value.toString(), evento.child("OrganizadorEmail").value.toString(), evento.child("OrganizadorName").value.toString(), evento.child("OrganizadorId").value.toString(), evento.child("BancoOrganizador").value.toString(), evento.child("CuentaOrganizador").value.toString(), evento.child("TipoCuota").value.toString(), evento.child("TipoEvento").value.toString(), participantesList))
+                }
+                eventos.value = eventosList
+                eventosAdapter.updateData(eventosList)
+                hideProgress.value = true
+            }else{
+                hideProgress.value = true
+                messageToast.value = "Error obtener eventos: ${it.exception?.message}"
+            }
+        }
     }
 
 }

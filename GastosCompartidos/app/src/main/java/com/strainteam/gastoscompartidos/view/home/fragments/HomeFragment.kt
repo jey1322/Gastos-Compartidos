@@ -41,6 +41,9 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initRecycler()
+        binding.progress.visibility = View.VISIBLE
+        viewModel.getEventos()
 
         //observadores
         viewModel.motivoList.observe(viewLifecycleOwner, Observer {
@@ -149,6 +152,11 @@ class HomeFragment : Fragment() {
         val smoothScroller = AnimationRecycler(context)
         smoothScroller.targetPosition = position
         layoutManager?.startSmoothScroll(smoothScroller)
+    }
+
+    private fun initRecycler(){
+        binding.rvEventos.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvEventos.adapter = viewModel.eventosAdapter
     }
 
 }
