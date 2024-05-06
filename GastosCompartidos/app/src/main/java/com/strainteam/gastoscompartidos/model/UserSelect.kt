@@ -5,5 +5,6 @@ data class UserSelect(
     val name: String,
     val email: String,
     val totalDepositar: Int,
-    val Pedido: String
+    val Pedido: String,
+    val pagado: Boolean
 )

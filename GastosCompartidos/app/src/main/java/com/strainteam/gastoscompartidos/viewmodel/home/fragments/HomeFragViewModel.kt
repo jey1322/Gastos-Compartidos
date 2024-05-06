@@ -32,6 +32,7 @@ class HomeFragViewModel(application: Application): AndroidViewModel(application)
     val eventosAdapter = ItemEventos(context, mutableListOf())
     val nameUser = MutableLiveData<String>()
     val eventos = MutableLiveData<MutableList<Eventos>>()
+    val showNoEvents = SingleLiveEvent<Boolean>()
 
     init {
         database = FirebaseDatabase.getInstance()
@@ -107,12 +108,12 @@ class HomeFragViewModel(application: Application): AndroidViewModel(application)
     fun migrateUserAUserSelect(list: List<User>){
         val userSelectL = ArrayList<UserSelect>()
         for (user in list){
-            val userSelect = UserSelect(user.id, user.nombre, user.email, 0,"")
+            val userSelect = UserSelect(user.id, user.nombre, user.email, 0,"", false)
             if(!userSelectL.contains(userSelect)){
                 userSelectL.add(userSelect)
             }
         }
-        userSelectL.add(UserSelect(auth.currentUser?.uid.toString(), nameUser.value.toString(), auth.currentUser?.email.toString(), 0, ""))
+        userSelectL.add(UserSelect(auth.currentUser?.uid.toString(), nameUser.value.toString(), auth.currentUser?.email.toString(), 0, "", false))
         userSelectList.value = userSelectL
     }
 
@@ -139,12 +140,17 @@ class HomeFragViewModel(application: Application): AndroidViewModel(application)
                 for (evento in it.result!!.children){
                     val participantesList = ArrayList<Eventos.Participantes>()
                     for (participante in evento.child("Participantes").children){
-                        participantesList.add(Eventos.Participantes(participante.child("id").value.toString(), participante.child("email").value.toString(), participante.child("name").value.toString(), participante.child("pedido").value.toString(), participante.child("totalDepositar").value.toString().toInt()))
+                        participantesList.add(Eventos.Participantes(participante.child("id").value.toString(), participante.child("email").value.toString(), participante.child("name").value.toString(), participante.child("pedido").value.toString(), participante.child("totalDepositar").value.toString().toInt(), participante.child("pagado").value.toString().toBoolean()))
                     }
                     eventosList.add(Eventos(evento.key.toString(), evento.child("Evento").value.toString(), evento.child("Fecha").value.toString(), evento.child("OrganizadorEmail").value.toString(), evento.child("OrganizadorName").value.toString(), evento.child("OrganizadorId").value.toString(), evento.child("BancoOrganizador").value.toString(), evento.child("CuentaOrganizador").value.toString(), evento.child("TipoCuota").value.toString(), evento.child("TipoEvento").value.toString(), participantesList))
                 }
                 eventos.value = eventosList
-                eventosAdapter.updateData(eventosList)
+                if(eventosList.isNotEmpty()){
+                    eventosAdapter.updateData(eventosList)
+                    showNoEvents.value = false
+                }else{
+                    showNoEvents.value = true
+                }
                 hideProgress.value = true
             }else{
                 hideProgress.value = true

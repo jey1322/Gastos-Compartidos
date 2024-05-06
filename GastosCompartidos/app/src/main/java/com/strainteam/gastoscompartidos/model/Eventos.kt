@@ -18,6 +18,7 @@ data class Eventos(
         val email: String,
         val name: String,
         val pedido: String,
-        val totalDepositar : Int
+        val totalDepositar : Int,
+        val pagado: Boolean
     )
 }

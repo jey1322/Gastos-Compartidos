@@ -50,6 +50,16 @@ class HomeFragment : Fragment() {
             motivoList = it
         })
 
+        viewModel.showNoEvents.observe(viewLifecycleOwner, Observer {
+            if(it){
+                binding.ivNoData.visibility = View.VISIBLE
+                binding.tvNoData.visibility = View.VISIBLE
+            }else{
+                binding.ivNoData.visibility = View.GONE
+                binding.tvNoData.visibility = View.GONE
+            }
+        })
+
         viewModel.cuotaList.observe(viewLifecycleOwner, Observer {
             cuotaList = it
         })
