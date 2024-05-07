@@ -3,6 +3,7 @@ package com.strainteam.gastoscompartidos.adapter
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.strainteam.gastoscompartidos.databinding.ItemEventosBinding
 import com.strainteam.gastoscompartidos.model.Eventos
 import com.strainteam.gastoscompartidos.model.User
+import com.strainteam.gastoscompartidos.view.detalleEvento.DetalleEvento
 
 class ItemEventos(private val context: Context, private val mList: MutableList<Eventos>): RecyclerView.Adapter<ItemEventos.ViewHolder>() {
 
@@ -21,7 +23,7 @@ class ItemEventos(private val context: Context, private val mList: MutableList<E
             binding.tvBanco.text = "Banco: "+evento.bancoOrganizador
             binding.tvTipoEventoVal.text = evento.tipoEvento
             binding.tvTipoCuotaVal.text = evento.tipoCuota
-            binding.tvParticipantes.text = "Participantes: "+evento.participantes.size.toString()+" (Ver Participantes)"
+            binding.tvParticipantes.text = "Participantes: "+evento.participantes.size.toString()
 
             binding.tvCopy.setOnClickListener {
                 if(evento.bancoOrganizador.isEmpty()){
@@ -34,6 +36,14 @@ class ItemEventos(private val context: Context, private val mList: MutableList<E
                     Toast.makeText(context, "cuenta copiada", Toast.LENGTH_SHORT).show()
                 }
             }
+
+            binding.root.setOnClickListener {
+                val intent = Intent(context, DetalleEvento::class.java)
+                intent.putExtra("id", evento.id)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                context.startActivity(intent)
+            }
+
         }
     }
 
