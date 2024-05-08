@@ -3,19 +3,19 @@ package com.strainteam.gastoscompartidos.adapter
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.strainteam.gastoscompartidos.R
 import com.strainteam.gastoscompartidos.databinding.ItemEventosBinding
+import com.strainteam.gastoscompartidos.databinding.SheetOptionsEventsBinding
 import com.strainteam.gastoscompartidos.model.Eventos
-import com.strainteam.gastoscompartidos.model.User
-import com.strainteam.gastoscompartidos.view.detalleEvento.DetalleEvento
 
 class ItemEventos(private val context: Context, private val mList: MutableList<Eventos>): RecyclerView.Adapter<ItemEventos.ViewHolder>() {
 
-    inner class ViewHolder(val binding: ItemEventosBinding): RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(private val binding: ItemEventosBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(evento: Eventos){
             binding.tvEvento.text = evento.evento
             binding.tvFecha.text = evento.fecha
@@ -37,11 +37,12 @@ class ItemEventos(private val context: Context, private val mList: MutableList<E
                 }
             }
 
-            binding.root.setOnClickListener {
-                val intent = Intent(context, DetalleEvento::class.java)
-                intent.putExtra("id", evento.id)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                context.startActivity(intent)
+            binding.tvOptions.setOnClickListener {
+                val dialog = BottomSheetDialog(context)
+                val view = LayoutInflater.from(context).inflate(R.layout.sheet_options_events,null)
+                val binding2 = SheetOptionsEventsBinding.bind(view)
+                dialog.setContentView(binding2.root)
+                dialog.show()
             }
 
         }

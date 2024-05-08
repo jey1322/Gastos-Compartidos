@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Eliminar evento / Salirme del evento"
+            android:drawableStart="@drawable/ic_delete"
+            android:gravity="center_vertical"
+            android:drawablePadding="5dp"
+            android:paddingHorizontal="10dp"
+            android:background="@drawable/edittext"
+            android:textColor="@color/Background"
+            android:textSize="13dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="30dp"
+            android:id="@+id/tvDeleteEvent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Mi pedido"
+            android:drawableStart="@drawable/ic_note"
+            android:gravity="center_vertical"
+            android:drawablePadding="5dp"
+            android:paddingHorizontal="10dp"
+            android:background="@drawable/edittext"
+            android:textColor="@color/text"
+            android:textSize="13dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/tvPedido"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Editar evento"
+            android:drawableStart="@drawable/ic_edit"
+            android:gravity="center_vertical"
+            android:drawablePadding="5dp"
+            android:paddingHorizontal="10dp"
+            android:background="@drawable/edittext"
+            android:textColor="@color/text"
+            android:textSize="13dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/tvEditEvent"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Establecer valor cuota fija"
+            android:drawableStart="@drawable/ic_cash"
+            android:gravity="center_vertical"
+            android:drawablePadding="5dp"
+            android:paddingHorizontal="10dp"
+            android:background="@drawable/edittext"
+            android:textColor="@color/text"
+            android:textSize="13dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/tvCuotaFija"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Marcar como cuota pagada"
+            android:drawableStart="@drawable/ic_cash"
+            android:gravity="center_vertical"
+            android:drawablePadding="5dp"
+            android:paddingHorizontal="10dp"
+            android:background="@drawable/edittext"
+            android:textColor="@color/text"
+            android:textSize="13dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/tvCuotaPagada"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Participantes del evento"
+            android:drawableStart="@drawable/ic_people"
+            android:gravity="center_vertical"
+            android:drawablePadding="5dp"
+            android:paddingHorizontal="10dp"
+            android:background="@drawable/edittext"
+            android:textColor="@color/text"
+            android:textSize="13dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/tvParticipantes"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
