@@ -1,6 +1,7 @@
 package com.strainteam.gastoscompartidos.viewmodel.home.fragments
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
@@ -139,10 +140,16 @@ class HomeFragViewModel(application: Application): AndroidViewModel(application)
                 val eventosList = ArrayList<Eventos>()
                 for (evento in it.result!!.children){
                     val participantesList = ArrayList<Eventos.Participantes>()
+                    var isParticipante = false
                     for (participante in evento.child("Participantes").children){
-                        participantesList.add(Eventos.Participantes(participante.child("id").value.toString(), participante.child("email").value.toString(), participante.child("name").value.toString(), participante.child("pedido").value.toString(), participante.child("totalDepositar").value.toString().toInt(), participante.child("pagado").value.toString().toBoolean()))
+                        if(participante.child("id").value.toString() == auth.currentUser?.uid){
+                            isParticipante = true
+                            participantesList.add(Eventos.Participantes(participante.child("id").value.toString(), participante.child("email").value.toString(), participante.child("name").value.toString(), participante.child("pedido").value.toString(), participante.child("totalDepositar").value.toString().toInt(), participante.child("pagado").value.toString().toBoolean()))
+                        }
                     }
-                    eventosList.add(Eventos(evento.key.toString(), evento.child("Evento").value.toString(), evento.child("Fecha").value.toString(), evento.child("OrganizadorEmail").value.toString(), evento.child("OrganizadorName").value.toString(), evento.child("OrganizadorId").value.toString(), evento.child("BancoOrganizador").value.toString(), evento.child("CuentaOrganizador").value.toString(), evento.child("TipoCuota").value.toString(), evento.child("TipoEvento").value.toString(), participantesList))
+                    if(isParticipante){
+                        eventosList.add(Eventos(evento.key.toString(), evento.child("Evento").value.toString(), evento.child("Fecha").value.toString(), evento.child("OrganizadorEmail").value.toString(), evento.child("OrganizadorName").value.toString(), evento.child("OrganizadorId").value.toString(), evento.child("BancoOrganizador").value.toString(), evento.child("CuentaOrganizador").value.toString(), evento.child("TipoCuota").value.toString(), evento.child("TipoEvento").value.toString(), participantesList))
+                    }
                 }
                 eventos.value = eventosList
                 if(eventosList.isNotEmpty()){
