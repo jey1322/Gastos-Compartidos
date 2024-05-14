@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.strainteam.gastoscompartidos.R
 import com.strainteam.gastoscompartidos.databinding.ActivityOptionEventsBinding
 import com.strainteam.gastoscompartidos.viewmodel.optionEvents.OptionEventsViewModel
@@ -31,6 +32,20 @@ private val viewModel : OptionEventsViewModel by viewModels()
 
         binding.back.setOnClickListener {
             finish()
+        }
+
+        binding.tvCuotaPagada.setOnClickListener {
+            val dialog = MaterialAlertDialogBuilder(this)
+            dialog.setTitle("Marcar como pagada?")
+            dialog.setMessage("Realiza esta acción siempre y cuando ya hayas depositado tu cuota al organizador")
+            dialog.setPositiveButton("Marcar pagada"){ _, _ ->
+                viewModel.marcarComoPagada(id)
+                binding.vista.visibility = View.GONE
+                binding.progressBar.visibility = View.VISIBLE
+            }
+            dialog.setNegativeButton("Cancelar"){ _, _ -> }
+            dialog.setCancelable(false)
+            dialog.show()
         }
 
         //Observadores
