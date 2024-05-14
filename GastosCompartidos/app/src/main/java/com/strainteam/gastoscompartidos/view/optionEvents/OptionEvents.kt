@@ -27,7 +27,7 @@ private val viewModel : OptionEventsViewModel by viewModels()
         binding.tvEvent.text = name
 
         //lanzadores de eventos y Clicks
-        viewModel.getIsOrganizadorEvent(id)
+        viewModel.getMiDetallePartipante(id)
 
         binding.back.setOnClickListener {
             finish()
@@ -41,10 +41,18 @@ private val viewModel : OptionEventsViewModel by viewModels()
                 binding.tvCuotaFija.visibility = View.VISIBLE
                 binding.tvDeleteEvent.setText("Eliminar evento")
             }else{
-                binding.tvDeleteEvent.setText("Salirme del evento (No participaré)")
+                binding.tvDeleteEvent.setText("Salirme del evento / No participaré")
                 binding.tvEditEvent.visibility = View.GONE
                 binding.tvBanco.visibility = View.GONE
                 binding.tvCuotaFija.visibility = View.GONE
+            }
+        })
+
+        viewModel.isPagado.observe(this, Observer {
+            if(it){
+                binding.tvCuotaPagada.text = "Cuota pagada"
+                binding.tvCuotaPagada.background = getDrawable(R.drawable.cuota_pagada)
+                binding.tvCuotaPagada.isEnabled = false
             }
         })
 

@@ -24,7 +24,7 @@ class ItemEventos(private val context: Context, private val mList: MutableList<E
             binding.tvBanco.text = "Banco: "+evento.bancoOrganizador
             binding.tvTipoEventoVal.text = evento.tipoEvento
             binding.tvTipoCuotaVal.text = evento.tipoCuota
-            binding.tvParticipantes.text = "Participantes: "+evento.participantes.size.toString()
+            binding.tvCuotaTotal.text = "Cuota a depositar: "+evento.participantes[0].totalDepositar.toString()
 
             binding.tvCopy.setOnClickListener {
                 if(evento.bancoOrganizador.isEmpty()){

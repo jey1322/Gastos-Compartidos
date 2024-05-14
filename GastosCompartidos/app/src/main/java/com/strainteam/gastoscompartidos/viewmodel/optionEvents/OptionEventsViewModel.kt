@@ -2,6 +2,7 @@ package com.strainteam.gastoscompartidos.viewmodel.optionEvents
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -15,11 +16,32 @@ class OptionEventsViewModel(application: Application): AndroidViewModel(applicat
     val isOrganizador = SingleLiveEvent<Boolean>()
     val showView = SingleLiveEvent<Boolean>()
     val messageToast = SingleLiveEvent<String>()
+    val isPagado = MutableLiveData<Boolean>()
+    val pedido = SingleLiveEvent<String>()
+    val totalDepositar = SingleLiveEvent<Int>()
 
     init {
         auth = FirebaseAuth.getInstance()
         database= FirebaseDatabase.getInstance()
         dbEventoRef= database.reference.child("Eventos")
+    }
+
+    fun getMiDetallePartipante(idEvent: String){
+        dbEventoRef.child(idEvent).child("Participantes").get().addOnCompleteListener {
+            if(it.isSuccessful){
+                for (participante in it.result!!.children){
+                    if(participante.child("id").value.toString() == auth.currentUser!!.uid){
+                        isPagado.value = participante.child("pagado").value.toString().toBoolean()
+                        pedido.value = participante.child("pedido").value.toString()
+                        totalDepositar.value = participante.child("totalDepositar").value.toString().toInt()
+                    }
+                }
+                getIsOrganizadorEvent(idEvent)
+            }else{
+                messageToast.value = "Error: ${it.exception?.message}"
+                showView.value = false
+            }
+        }
     }
 
     fun getIsOrganizadorEvent(idEvent: String){

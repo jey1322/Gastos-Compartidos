@@ -168,11 +168,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Participantes: 8 (Ver Participantes)"
+            android:text="Cuota a depositar"
             android:textColor="@color/Background"
             android:textSize="13dp"
             android:textAlignment="textEnd"
-            android:id="@+id/tvParticipantes"
+            android:id="@+id/tvCuotaTotal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvCopy"
             android:layout_marginHorizontal="10dp"
