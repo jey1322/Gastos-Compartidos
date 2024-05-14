@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.strainteam.gastoscompartidos.R
 import com.strainteam.gastoscompartidos.databinding.ActivityOptionEventsBinding
+import com.strainteam.gastoscompartidos.databinding.DialogPedidoBinding
 import com.strainteam.gastoscompartidos.viewmodel.optionEvents.OptionEventsViewModel
 
 class OptionEvents : AppCompatActivity() {
@@ -40,6 +41,21 @@ private val viewModel : OptionEventsViewModel by viewModels()
             dialog.setMessage("Realiza esta acción siempre y cuando ya hayas depositado tu cuota al organizador")
             dialog.setPositiveButton("Marcar pagada"){ _, _ ->
                 viewModel.marcarComoPagada(id)
+                binding.vista.visibility = View.GONE
+                binding.progressBar.visibility = View.VISIBLE
+            }
+            dialog.setNegativeButton("Cancelar"){ _, _ -> }
+            dialog.setCancelable(false)
+            dialog.show()
+        }
+
+        binding.tvPedido.setOnClickListener {
+            val dialog = MaterialAlertDialogBuilder(this)
+            val bindingDialog = DialogPedidoBinding.inflate(layoutInflater)
+            dialog.setView(bindingDialog.root)
+            bindingDialog.etPedido.setText(viewModel.pedido.value)
+            dialog.setPositiveButton("Guardar pedido"){ _, _ ->
+                viewModel.updateMiPedido(id,bindingDialog.etPedido.text.toString())
                 binding.vista.visibility = View.GONE
                 binding.progressBar.visibility = View.VISIBLE
             }

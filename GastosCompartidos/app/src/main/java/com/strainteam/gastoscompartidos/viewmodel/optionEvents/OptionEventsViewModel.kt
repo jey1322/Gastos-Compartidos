@@ -72,4 +72,20 @@ class OptionEventsViewModel(application: Application): AndroidViewModel(applicat
         }
     }
 
+    fun updateMiPedido(idEvent: String, pedido: String){
+        dbEventoRef.child(idEvent).child("Participantes").get().addOnCompleteListener {
+            if(it.isSuccessful){
+                for (participante in it.result!!.children){
+                    if(participante.child("id").value.toString() == auth.currentUser!!.uid){
+                        dbEventoRef.child(idEvent).child("Participantes").child(participante.key!!).child("pedido").setValue(pedido)
+                        messageToast.value = "Pedido actualizado"
+                        getMiDetallePartipante(idEvent)
+                    }
+                }
+            }else{
+                messageToast.value = "Error: ${it.exception?.message}"
+            }
+        }
+    }
+
 }
