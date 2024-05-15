@@ -31,7 +31,7 @@ private val viewModel : OptionEventsViewModel by viewModels()
         binding.tvEvent.text = name
 
         //lanzadores de eventos y Clicks
-        viewModel.getMiDetallePartipante(id)
+        viewModel.getDetalleEvento(id)
 
         binding.back.setOnClickListener {
             finish()
@@ -102,12 +102,27 @@ private val viewModel : OptionEventsViewModel by viewModels()
                 binding.tvCuotaFija.visibility = View.VISIBLE
                 binding.tvDeleteEvent.visibility = View.VISIBLE
                 binding.tvSalirmeEvento.visibility = View.GONE
+                viewModel.tipoCuota.observe(this, Observer {
+                    if(it=="Cuota Fija"){
+                        binding.tvCuotaFija.visibility = View.VISIBLE
+                    }else{
+                        binding.tvCuotaFija.visibility = View.GONE
+                    }
+                })
             }else{
                 binding.tvSalirmeEvento.visibility = View.VISIBLE
                 binding.tvDeleteEvent.visibility = View.GONE
                 binding.tvEditEvent.visibility = View.GONE
                 binding.tvBanco.visibility = View.GONE
                 binding.tvCuotaFija.visibility = View.GONE
+            }
+        })
+
+        viewModel.tipoEvento.observe(this, Observer {
+            if(it == "Cooperación"){
+                binding.tvPedido.visibility = View.GONE
+            }else{
+                binding.tvPedido.visibility = View.VISIBLE
             }
         })
 

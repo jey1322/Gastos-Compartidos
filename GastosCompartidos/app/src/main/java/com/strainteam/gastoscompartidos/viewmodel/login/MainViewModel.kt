@@ -65,7 +65,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
             if(it.isSuccessful){
                 when(auth.currentUser?.isEmailVerified){
                     true -> {
-                        errorSigIn.value = "Bienvenido ${auth.currentUser?.email}"
+                        errorSigIn.value = "Bienvenido"
                         sessionManager.saveEmail(auth.currentUser?.email.toString())
                         sessionManager.saveUid(auth.currentUser?.uid.toString())
                         startActivityHome.value = true

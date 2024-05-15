@@ -20,6 +20,12 @@ class OptionEventsViewModel(application: Application): AndroidViewModel(applicat
     val pedido = SingleLiveEvent<String>()
     val totalDepositar = SingleLiveEvent<Int>()
     val backScreen = SingleLiveEvent<Boolean>()
+    val tipoEvento = SingleLiveEvent<String>()
+    val tipoCuota = SingleLiveEvent<String>()
+    val bancoOrganizador = SingleLiveEvent<String>()
+    val cuentaOrganizador = SingleLiveEvent<String>()
+    val evento = SingleLiveEvent<String>()
+    val fecha = SingleLiveEvent<String>()
 
     init {
         auth = FirebaseAuth.getInstance()
@@ -64,7 +70,7 @@ class OptionEventsViewModel(application: Application): AndroidViewModel(applicat
                     if(participante.child("id").value.toString() == auth.currentUser!!.uid){
                         dbEventoRef.child(idEvent).child("Participantes").child(participante.key!!).child("pagado").setValue(true)
                         messageToast.value = "Cuota marcada como pagada"
-                        getMiDetallePartipante(idEvent)
+                        getDetalleEvento(idEvent)
                     }
                 }
             }else{
@@ -80,7 +86,7 @@ class OptionEventsViewModel(application: Application): AndroidViewModel(applicat
                     if(participante.child("id").value.toString() == auth.currentUser!!.uid){
                         dbEventoRef.child(idEvent).child("Participantes").child(participante.key!!).child("pedido").setValue(pedido)
                         messageToast.value = "Pedido actualizado"
-                        getMiDetallePartipante(idEvent)
+                        getDetalleEvento(idEvent)
                     }
                 }
             }else{
@@ -112,6 +118,23 @@ class OptionEventsViewModel(application: Application): AndroidViewModel(applicat
                 backScreen.value = true
             }else{
                 messageToast.value = "Error: ${it.exception?.message}"
+            }
+        }
+    }
+
+    fun getDetalleEvento(idEvent: String){
+        dbEventoRef.child(idEvent).get().addOnCompleteListener {
+            if(it.isSuccessful){
+                tipoEvento.value = it.result!!.child("TipoEvento").value.toString()
+                tipoCuota.value = it.result!!.child("TipoCuota").value.toString()
+                bancoOrganizador.value = it.result!!.child("BancoOrganizador").value.toString()
+                cuentaOrganizador.value = it.result!!.child("CuentaOrganizador").value.toString()
+                evento.value = it.result!!.child("Evento").value.toString()
+                fecha.value = it.result!!.child("Fecha").value.toString()
+                getMiDetallePartipante(idEvent)
+            }else{
+                messageToast.value = "Error: ${it.exception?.message}"
+                showView.value = false
             }
         }
     }
