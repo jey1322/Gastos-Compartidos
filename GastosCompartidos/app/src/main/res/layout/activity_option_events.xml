@@ -74,7 +74,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="Eliminar evento / Salirme del evento"
+                android:text="Eliminar evento"
                 android:drawableStart="@drawable/ic_delete"
                 android:gravity="center_vertical"
                 android:drawablePadding="5dp"
@@ -85,6 +85,21 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/tvDeleteEvent"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Salirme del evento"
+                android:drawableStart="@drawable/ic_person_off"
+                android:gravity="center_vertical"
+                android:drawablePadding="5dp"
+                android:paddingHorizontal="10dp"
+                android:background="@drawable/edittext"
+                android:textColor="@color/Background"
+                android:textSize="13dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tvSalirmeEvento"/>
 
             <TextView
                 android:layout_width="match_parent"

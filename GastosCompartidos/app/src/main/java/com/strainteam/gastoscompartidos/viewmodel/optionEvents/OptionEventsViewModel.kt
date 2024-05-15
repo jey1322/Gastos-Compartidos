@@ -19,6 +19,7 @@ class OptionEventsViewModel(application: Application): AndroidViewModel(applicat
     val isPagado = MutableLiveData<Boolean>()
     val pedido = SingleLiveEvent<String>()
     val totalDepositar = SingleLiveEvent<Int>()
+    val backScreen = SingleLiveEvent<Boolean>()
 
     init {
         auth = FirebaseAuth.getInstance()
@@ -82,6 +83,33 @@ class OptionEventsViewModel(application: Application): AndroidViewModel(applicat
                         getMiDetallePartipante(idEvent)
                     }
                 }
+            }else{
+                messageToast.value = "Error: ${it.exception?.message}"
+            }
+        }
+    }
+
+    fun salirEvento(idEvent: String){
+        dbEventoRef.child(idEvent).child("Participantes").get().addOnCompleteListener {
+            if(it.isSuccessful){
+                for (participante in it.result!!.children){
+                    if(participante.child("id").value.toString() == auth.currentUser!!.uid){
+                        dbEventoRef.child(idEvent).child("Participantes").child(participante.key!!).removeValue()
+                        messageToast.value = "Has salido del evento"
+                        backScreen.value = true
+                    }
+                }
+            }else{
+                messageToast.value = "Error: ${it.exception?.message}"
+            }
+        }
+    }
+
+    fun deleteEvent(idEvent: String){
+        dbEventoRef.child(idEvent).removeValue().addOnCompleteListener {
+            if(it.isSuccessful){
+                messageToast.value = "Evento eliminado"
+                backScreen.value = true
             }else{
                 messageToast.value = "Error: ${it.exception?.message}"
             }

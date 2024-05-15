@@ -1,5 +1,6 @@
 package com.strainteam.gastoscompartidos.view.optionEvents
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -13,6 +14,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.strainteam.gastoscompartidos.R
 import com.strainteam.gastoscompartidos.databinding.ActivityOptionEventsBinding
 import com.strainteam.gastoscompartidos.databinding.DialogPedidoBinding
+import com.strainteam.gastoscompartidos.view.login.MainActivity
 import com.strainteam.gastoscompartidos.viewmodel.optionEvents.OptionEventsViewModel
 
 class OptionEvents : AppCompatActivity() {
@@ -64,15 +66,45 @@ private val viewModel : OptionEventsViewModel by viewModels()
             dialog.show()
         }
 
+        binding.tvSalirmeEvento.setOnClickListener {
+            val dialog = MaterialAlertDialogBuilder(this)
+            dialog.setTitle("Salirme del evento")
+            dialog.setMessage("Estas seguro de salirte de este evento?")
+            dialog.setPositiveButton("Salirme"){ _, _ ->
+                viewModel.salirEvento(id)
+                binding.vista.visibility = View.GONE
+                binding.progressBar.visibility = View.VISIBLE
+            }
+            dialog.setNegativeButton("Cancelar"){ _, _ -> }
+            dialog.setCancelable(false)
+            dialog.show()
+        }
+
+        binding.tvDeleteEvent.setOnClickListener {
+            val dialog = MaterialAlertDialogBuilder(this)
+            dialog.setTitle("Eliminar evento")
+            dialog.setMessage("Estas seguro de eliminar este evento?")
+            dialog.setPositiveButton("Eliminar"){ _, _ ->
+                viewModel.deleteEvent(id)
+                binding.vista.visibility = View.GONE
+                binding.progressBar.visibility = View.VISIBLE
+            }
+            dialog.setNegativeButton("Cancelar"){ _, _ -> }
+            dialog.setCancelable(false)
+            dialog.show()
+        }
+
         //Observadores
         viewModel.isOrganizador.observe(this, Observer {
             if(it){
                 binding.tvEditEvent.visibility = View.VISIBLE
                 binding.tvBanco.visibility = View.VISIBLE
                 binding.tvCuotaFija.visibility = View.VISIBLE
-                binding.tvDeleteEvent.setText("Eliminar evento")
+                binding.tvDeleteEvent.visibility = View.VISIBLE
+                binding.tvSalirmeEvento.visibility = View.GONE
             }else{
-                binding.tvDeleteEvent.setText("Salirme del evento / No participaré")
+                binding.tvSalirmeEvento.visibility = View.VISIBLE
+                binding.tvDeleteEvent.visibility = View.GONE
                 binding.tvEditEvent.visibility = View.GONE
                 binding.tvBanco.visibility = View.GONE
                 binding.tvCuotaFija.visibility = View.GONE
@@ -98,6 +130,15 @@ private val viewModel : OptionEventsViewModel by viewModels()
             }else{
                 binding.progressBar.visibility = View.GONE
                 binding.vista.visibility = View.GONE
+            }
+        })
+
+        viewModel.backScreen.observe(this, Observer {
+            if(it){
+                val intent = Intent(this, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                finish()
             }
         })
 
