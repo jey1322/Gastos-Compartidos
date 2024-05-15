@@ -21,18 +21,18 @@ class ItemEventos(private val context: Context, private val mList: MutableList<E
             binding.tvEvento.text = evento.evento
             binding.tvFecha.text = evento.fecha
             binding.tvOrganizador.text = "Organizador: "+evento.organizadorName
-            binding.tvBanco.text = "Banco: "+evento.bancoOrganizador
+            binding.tvBanco.text = "Banco: "+evento.bancoOrganizador+" - "+evento.cuentaOrganizador
             binding.tvTipoEventoVal.text = evento.tipoEvento
             binding.tvTipoCuotaVal.text = evento.tipoCuota
             binding.tvCuotaTotal.text = "Cuota a depositar: "+evento.participantes[0].totalDepositar.toString()
 
             binding.tvCopy.setOnClickListener {
-                if(evento.bancoOrganizador.isEmpty()){
+                if(evento.cuentaOrganizador.isEmpty()){
                     Toast.makeText(context, "No hay datos para copiar", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }else{
                     val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                    val clip = ClipData.newPlainText("Banco del Organizador", evento.bancoOrganizador)
+                    val clip = ClipData.newPlainText("Cuenta del organizador", evento.cuentaOrganizador)
                     clipboard.setPrimaryClip(clip)
                     Toast.makeText(context, "cuenta copiada", Toast.LENGTH_SHORT).show()
                 }
