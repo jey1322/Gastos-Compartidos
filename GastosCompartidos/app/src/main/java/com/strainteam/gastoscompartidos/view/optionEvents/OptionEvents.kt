@@ -3,6 +3,7 @@ package com.strainteam.gastoscompartidos.view.optionEvents
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -13,6 +14,7 @@ import androidx.lifecycle.Observer
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.strainteam.gastoscompartidos.R
 import com.strainteam.gastoscompartidos.databinding.ActivityOptionEventsBinding
+import com.strainteam.gastoscompartidos.databinding.DialogBancosBinding
 import com.strainteam.gastoscompartidos.databinding.DialogCuotaFijaBinding
 import com.strainteam.gastoscompartidos.databinding.DialogPedidoBinding
 import com.strainteam.gastoscompartidos.view.login.MainActivity
@@ -20,7 +22,8 @@ import com.strainteam.gastoscompartidos.viewmodel.optionEvents.OptionEventsViewM
 
 class OptionEvents : AppCompatActivity() {
     private lateinit var binding: ActivityOptionEventsBinding
-private val viewModel : OptionEventsViewModel by viewModels()
+    private val viewModel : OptionEventsViewModel by viewModels()
+    private var bancosList = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,6 +112,12 @@ private val viewModel : OptionEventsViewModel by viewModels()
             dialog.show()
         }
 
+        binding.tvBanco.setOnClickListener {
+            viewModel.getBancos()
+            binding.vista.visibility = View.GONE
+            binding.progressBar.visibility = View.VISIBLE
+        }
+
         //Observadores
         viewModel.isOrganizador.observe(this, Observer {
             if(it){
@@ -169,6 +178,27 @@ private val viewModel : OptionEventsViewModel by viewModels()
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
                 finish()
+            }
+        })
+
+        viewModel.bancosList.observe(this, Observer {
+            bancosList = it
+        })
+
+        viewModel.showDialogBanco.observe(this, Observer {
+            if(it){
+                val dialog = MaterialAlertDialogBuilder(this)
+                dialog.setCancelable(false)
+                val bindingDialog = DialogBancosBinding.inflate(layoutInflater)
+                dialog.setView(bindingDialog.root)
+                bindingDialog.spBancos.adapter = ArrayAdapter(this, R.layout.spinner_list,R.id.tvTextSpinner, bancosList)
+                dialog.setPositiveButton("Guardar"){ _, _ ->
+                    viewModel.updateCuentaYBancoOrganizador(id,bindingDialog.spBancos.selectedItem.toString(),bindingDialog.etCuenta.text.toString())
+                    binding.vista.visibility = View.GONE
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                dialog.setNegativeButton("Cancelar"){ _, _ -> }
+                dialog.show()
             }
         })
 

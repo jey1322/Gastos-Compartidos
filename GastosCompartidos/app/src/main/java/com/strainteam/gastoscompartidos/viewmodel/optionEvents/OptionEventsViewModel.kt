@@ -13,6 +13,7 @@ class OptionEventsViewModel(application: Application): AndroidViewModel(applicat
     private lateinit var  auth: FirebaseAuth
     private lateinit var database : FirebaseDatabase
     private lateinit var dbEventoRef : DatabaseReference
+    private lateinit var dbBancoRef : DatabaseReference
     val isOrganizador = SingleLiveEvent<Boolean>()
     val showView = SingleLiveEvent<Boolean>()
     val messageToast = SingleLiveEvent<String>()
@@ -26,11 +27,14 @@ class OptionEventsViewModel(application: Application): AndroidViewModel(applicat
     val cuentaOrganizador = SingleLiveEvent<String>()
     val evento = SingleLiveEvent<String>()
     val fecha = SingleLiveEvent<String>()
+    val bancosList = SingleLiveEvent<ArrayList<String>>()
+    val showDialogBanco = SingleLiveEvent<Boolean>()
 
     init {
         auth = FirebaseAuth.getInstance()
         database= FirebaseDatabase.getInstance()
         dbEventoRef= database.reference.child("Eventos")
+        dbBancoRef= database.reference.child("Bancos")
     }
 
     fun getMiDetallePartipante(idEvent: String){
@@ -46,7 +50,7 @@ class OptionEventsViewModel(application: Application): AndroidViewModel(applicat
                 getIsOrganizadorEvent(idEvent)
             }else{
                 messageToast.value = "Error: ${it.exception?.message}"
-                showView.value = false
+                showView.value = true
             }
         }
     }
@@ -58,7 +62,7 @@ class OptionEventsViewModel(application: Application): AndroidViewModel(applicat
                 showView.value = true
             }else{
                 messageToast.value = "Error: ${it.exception?.message}"
-                showView.value = false
+                showView.value = true
             }
         }
     }
@@ -134,7 +138,7 @@ class OptionEventsViewModel(application: Application): AndroidViewModel(applicat
                 getMiDetallePartipante(idEvent)
             }else{
                 messageToast.value = "Error: ${it.exception?.message}"
-                showView.value = false
+                showView.value = true
             }
         }
     }
@@ -151,6 +155,30 @@ class OptionEventsViewModel(application: Application): AndroidViewModel(applicat
                 messageToast.value = "Error: ${it.exception?.message}"
             }
         }
+    }
+
+    fun getBancos(){
+        dbBancoRef.get().addOnCompleteListener {
+            if(it.isSuccessful){
+                val bancosList = ArrayList<String>()
+                for (banco in it.result!!.children){
+                    bancosList.add(banco.value.toString())
+                }
+                this.bancosList.value = bancosList
+                showView.value = true
+                showDialogBanco.value = true
+            }else{
+                messageToast.value = "Error: ${it.exception?.message}"
+                showView.value = true
+            }
+        }
+    }
+
+    fun updateCuentaYBancoOrganizador(idEvent: String, banco: String, cuenta: String){
+        dbEventoRef.child(idEvent).child("BancoOrganizador").setValue(banco)
+        dbEventoRef.child(idEvent).child("CuentaOrganizador").setValue(cuenta)
+        messageToast.value = "Banco y cuenta actualizado"
+        backScreen.value = true
     }
 
 }
