@@ -3,13 +3,13 @@ package com.strainteam.gastoscompartidos.viewmodel.optionEvents
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.strainteam.gastoscompartidos.viewmodel.utils.SingleLiveEvent
 
-class OptionEventsViewModel(application: Application): AndroidViewModel(application){
-    private val context = getApplication<Application>().applicationContext
+class OptionEventsViewModel(): ViewModel(){
     private lateinit var  auth: FirebaseAuth
     private lateinit var database : FirebaseDatabase
     private lateinit var dbEventoRef : DatabaseReference
