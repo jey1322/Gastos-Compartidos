@@ -139,4 +139,18 @@ class OptionEventsViewModel(application: Application): AndroidViewModel(applicat
         }
     }
 
+    fun updateValueTotalaDepositar(idEvent: String, totalDepositar: Int){
+        dbEventoRef.child(idEvent).child("Participantes").get().addOnCompleteListener {
+            if(it.isSuccessful){
+                for (participante in it.result!!.children){
+                    dbEventoRef.child(idEvent).child("Participantes").child(participante.key!!).child("totalDepositar").setValue(totalDepositar)
+                }
+                messageToast.value = "Total a depositar actualizado"
+                backScreen.value = true
+            }else{
+                messageToast.value = "Error: ${it.exception?.message}"
+            }
+        }
+    }
+
 }

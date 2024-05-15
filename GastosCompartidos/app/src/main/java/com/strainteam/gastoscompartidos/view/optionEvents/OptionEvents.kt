@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.strainteam.gastoscompartidos.R
 import com.strainteam.gastoscompartidos.databinding.ActivityOptionEventsBinding
+import com.strainteam.gastoscompartidos.databinding.DialogCuotaFijaBinding
 import com.strainteam.gastoscompartidos.databinding.DialogPedidoBinding
 import com.strainteam.gastoscompartidos.view.login.MainActivity
 import com.strainteam.gastoscompartidos.viewmodel.optionEvents.OptionEventsViewModel
@@ -91,6 +92,20 @@ private val viewModel : OptionEventsViewModel by viewModels()
             }
             dialog.setNegativeButton("Cancelar"){ _, _ -> }
             dialog.setCancelable(false)
+            dialog.show()
+        }
+
+        binding.tvCuotaFija.setOnClickListener {
+            val dialog = MaterialAlertDialogBuilder(this)
+            dialog.setCancelable(false)
+            val bindingDialog = DialogCuotaFijaBinding.inflate(layoutInflater)
+            dialog.setView(bindingDialog.root)
+            dialog.setPositiveButton("Guardar"){ _, _ ->
+                viewModel.updateValueTotalaDepositar(id,bindingDialog.etCuotaVal.text.toString().toInt())
+                binding.vista.visibility = View.GONE
+                binding.progressBar.visibility = View.VISIBLE
+            }
+            dialog.setNegativeButton("Cancelar"){ _, _ -> }
             dialog.show()
         }
 
