@@ -14,6 +14,8 @@ class OptionEventsViewModel(): ViewModel(){
     private lateinit var database : FirebaseDatabase
     private lateinit var dbEventoRef : DatabaseReference
     private lateinit var dbBancoRef : DatabaseReference
+    private lateinit var dbMotivoEventRef : DatabaseReference
+    private lateinit var dbTipoCuotaRef: DatabaseReference
     val isOrganizador = SingleLiveEvent<Boolean>()
     val showView = SingleLiveEvent<Boolean>()
     val messageToast = SingleLiveEvent<String>()
@@ -28,13 +30,18 @@ class OptionEventsViewModel(): ViewModel(){
     val evento = SingleLiveEvent<String>()
     val fecha = SingleLiveEvent<String>()
     val bancosList = SingleLiveEvent<ArrayList<String>>()
+    val tipoCuotaList = SingleLiveEvent<ArrayList<String>>()
+    val motivoEventList = SingleLiveEvent<ArrayList<String>>()
     val showDialogBanco = SingleLiveEvent<Boolean>()
+    val showDialogEdit = SingleLiveEvent<Boolean>()
 
     init {
         auth = FirebaseAuth.getInstance()
         database= FirebaseDatabase.getInstance()
         dbEventoRef= database.reference.child("Eventos")
         dbBancoRef= database.reference.child("Bancos")
+        dbMotivoEventRef= database.reference.child("MotivosEventos")
+        dbTipoCuotaRef= database.reference.child("TipoCuota")
     }
 
     fun getMiDetallePartipante(idEvent: String){
@@ -178,6 +185,48 @@ class OptionEventsViewModel(): ViewModel(){
         dbEventoRef.child(idEvent).child("BancoOrganizador").setValue(banco)
         dbEventoRef.child(idEvent).child("CuentaOrganizador").setValue(cuenta)
         messageToast.value = "Banco y cuenta actualizado"
+        backScreen.value = true
+    }
+
+    fun getMotivosEventos(){
+        dbMotivoEventRef.get().addOnCompleteListener {
+            if(it.isSuccessful){
+                val motivoEventList = ArrayList<String>()
+                for (motivo in it.result!!.children){
+                    motivoEventList.add(motivo.value.toString())
+                }
+                this.motivoEventList.value = motivoEventList
+                getTipoCuotas()
+            }else{
+                messageToast.value = "Error: ${it.exception?.message}"
+                showView.value = true
+            }
+        }
+    }
+
+    fun getTipoCuotas(){
+        dbTipoCuotaRef.get().addOnCompleteListener {
+            if(it.isSuccessful){
+                val tipoCuotaList = ArrayList<String>()
+                for (tipoCuota in it.result!!.children){
+                    tipoCuotaList.add(tipoCuota.value.toString())
+                }
+                this.tipoCuotaList.value = tipoCuotaList
+                showView.value = true
+                showDialogEdit.value = true
+            }else{
+                messageToast.value = "Error: ${it.exception?.message}"
+                showView.value = true
+            }
+        }
+    }
+
+    fun updateEvento(idEvent: String, evento: String, fecha: String, tipoEvento: String, tipoCuota: String){
+        dbEventoRef.child(idEvent).child("Evento").setValue(evento)
+        dbEventoRef.child(idEvent).child("Fecha").setValue(fecha)
+        dbEventoRef.child(idEvent).child("TipoEvento").setValue(tipoEvento)
+        dbEventoRef.child(idEvent).child("TipoCuota").setValue(tipoCuota)
+        messageToast.value = "Evento actualizado"
         backScreen.value = true
     }
 

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crear evento"
+            android:textColor="@color/text"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Puedes agregar personas a este evento utilizando su nombre o correo electrónico."
+            android:textColor="@color/text"
+            android:textSize="13dp"
+            android:layout_marginHorizontal="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Evento:"
+            android:textColor="@color/text"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="10dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/edittext"
+            android:id="@+id/etEvento"
+            android:hint="Cumpleaños, Cooperacion, Honras funebres, etc."
+            android:textColor="@color/text"
+            android:textSize="13dp"
+            android:paddingHorizontal="10dp"
+            android:maxLines="1"
+            android:inputType="text"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha:"
+            android:textColor="@color/text"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/edittext"
+            android:id="@+id/etFechaEvento"
+            android:hint="Seleccione la fecha"
+            android:clickable="false"
+            android:focusable="false"
+            android:textColor="@color/text"
+            android:textSize="13dp"
+            android:paddingHorizontal="10dp"
+            android:maxLines="1"
+            android:inputType="text"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tipo de evento:"
+            android:textColor="@color/text"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/spTipoEvento"
+            android:background="@drawable/edittext"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tipo de cuota:"
+            android:textColor="@color/text"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/spTipoCuota"
+            android:background="@drawable/edittext"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginHorizontal="10dp"/>
+
+    </LinearLayout>
+
+</ScrollView>

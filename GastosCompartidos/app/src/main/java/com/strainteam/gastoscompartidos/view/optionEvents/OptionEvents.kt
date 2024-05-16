@@ -17,6 +17,8 @@ import com.strainteam.gastoscompartidos.databinding.ActivityOptionEventsBinding
 import com.strainteam.gastoscompartidos.databinding.DialogBancosBinding
 import com.strainteam.gastoscompartidos.databinding.DialogCuotaFijaBinding
 import com.strainteam.gastoscompartidos.databinding.DialogPedidoBinding
+import com.strainteam.gastoscompartidos.databinding.DialogUpdateEventoBinding
+import com.strainteam.gastoscompartidos.utils.CalendarComplFragment
 import com.strainteam.gastoscompartidos.view.login.MainActivity
 import com.strainteam.gastoscompartidos.viewmodel.optionEvents.OptionEventsViewModel
 
@@ -24,6 +26,8 @@ class OptionEvents : AppCompatActivity() {
     private lateinit var binding: ActivityOptionEventsBinding
     private val viewModel : OptionEventsViewModel by viewModels()
     private var bancosList = ArrayList<String>()
+    private var motivosEventList = ArrayList<String>()
+    private var tipoCuotaList = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,6 +122,12 @@ class OptionEvents : AppCompatActivity() {
             binding.progressBar.visibility = View.VISIBLE
         }
 
+        binding.tvEditEvent.setOnClickListener {
+            viewModel.getMotivosEventos()
+            binding.vista.visibility = View.GONE
+            binding.progressBar.visibility = View.VISIBLE
+        }
+
         //Observadores
         viewModel.isOrganizador.observe(this, Observer {
             if(it){
@@ -194,6 +204,39 @@ class OptionEvents : AppCompatActivity() {
                 bindingDialog.spBancos.adapter = ArrayAdapter(this, R.layout.spinner_list,R.id.tvTextSpinner, bancosList)
                 dialog.setPositiveButton("Guardar"){ _, _ ->
                     viewModel.updateCuentaYBancoOrganizador(id,bindingDialog.spBancos.selectedItem.toString(),bindingDialog.etCuenta.text.toString())
+                    binding.vista.visibility = View.GONE
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                dialog.setNegativeButton("Cancelar"){ _, _ -> }
+                dialog.show()
+            }
+        })
+
+        viewModel.motivoEventList.observe(this, Observer {
+            motivosEventList = it
+        })
+
+        viewModel.tipoCuotaList.observe(this, Observer {
+            tipoCuotaList = it
+        })
+
+        viewModel.showDialogEdit.observe(this, Observer {
+            if(it){
+                val dialog = MaterialAlertDialogBuilder(this)
+                dialog.setCancelable(false)
+                val bindingDialog = DialogUpdateEventoBinding.inflate(layoutInflater)
+                dialog.setView(bindingDialog.root)
+                bindingDialog.spTipoEvento.adapter = ArrayAdapter(this, R.layout.spinner_list, R.id.tvTextSpinner, motivosEventList)
+                bindingDialog.spTipoCuota.adapter = ArrayAdapter(this, R.layout.spinner_list, R.id.tvTextSpinner, tipoCuotaList)
+                bindingDialog.etEvento.setText(viewModel.evento.value)
+                bindingDialog.etFechaEvento.setText(viewModel.fecha.value)
+                bindingDialog.spTipoEvento.setSelection(motivosEventList.indexOf(viewModel.tipoEvento.value))
+                bindingDialog.spTipoCuota.setSelection(tipoCuotaList.indexOf(viewModel.tipoCuota.value))
+                bindingDialog.etFechaEvento.setOnClickListener {
+                    CalendarComplFragment { bindingDialog.etFechaEvento.setText(it) }.show(this.supportFragmentManager, "datePicker")
+                }
+                dialog.setPositiveButton("Actualizar"){ _, _ ->
+                    viewModel.updateEvento(id,bindingDialog.etEvento.text.toString(),bindingDialog.etFechaEvento.text.toString(),bindingDialog.spTipoEvento.selectedItem.toString(),bindingDialog.spTipoCuota.selectedItem.toString())
                     binding.vista.visibility = View.GONE
                     binding.progressBar.visibility = View.VISIBLE
                 }
