@@ -21,7 +21,7 @@ Cualquier usuario puede crear un evento (Ser administrador), y cualquier usuario
 - Arquitectura MVVM
 - Firebase como motor de base de datos 
 
-# Algunas captura de pantalla de la aplicación
+# Algunas capturas de pantalla de la aplicación
 
 ![image](https://github.com/jey1322/Gastos-Compartidos/assets/44885614/616c0021-a44d-4b9a-b53b-ed518adb99a7)    ![image](https://github.com/jey1322/Gastos-Compartidos/assets/44885614/985aaabe-b435-4654-9843-f63fb85968cd)
 
