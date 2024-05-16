@@ -9,7 +9,7 @@ Cualquier usuario puede crear x numero de eventos... Al realizarlo, automaticame
 este usuario es el encargado de agregar a los participantes, llevar el control de los pedidos de los participantes, llevar el control de gastos totales, y sobre todo poder gestionar el pago total en el local.
 
 # Participantes
-Veraz reflejado dicho evento que te han agregado, dentro de ello podras ver quien es el organizador, la fecha del evento, el motivo, el numero de cuenta ha hacer la transaccion, 
+Podras ver reflejado el evento que te han agregado, dentro de ello podras ver quien es el organizador, la fecha del evento, el motivo, el numero de cuenta ha hacer la transaccion, 
 podras agregar tu pedido, y sobre todo podras ver la cuota que te corresponde a pagar.
 
 # NOTA
