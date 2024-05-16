@@ -18,8 +18,10 @@ import com.strainteam.gastoscompartidos.databinding.DialogBancosBinding
 import com.strainteam.gastoscompartidos.databinding.DialogCuotaFijaBinding
 import com.strainteam.gastoscompartidos.databinding.DialogPedidoBinding
 import com.strainteam.gastoscompartidos.databinding.DialogUpdateEventoBinding
+import com.strainteam.gastoscompartidos.model.Eventos
 import com.strainteam.gastoscompartidos.utils.CalendarComplFragment
 import com.strainteam.gastoscompartidos.view.login.MainActivity
+import com.strainteam.gastoscompartidos.view.participantes.Participantes
 import com.strainteam.gastoscompartidos.viewmodel.optionEvents.OptionEventsViewModel
 
 class OptionEvents : AppCompatActivity() {
@@ -126,6 +128,15 @@ class OptionEvents : AppCompatActivity() {
             viewModel.getMotivosEventos()
             binding.vista.visibility = View.GONE
             binding.progressBar.visibility = View.VISIBLE
+        }
+
+        binding.tvParticipantes.setOnClickListener {
+            val intent = Intent(this, Participantes::class.java)
+            intent.putExtra("id",id)
+            intent.putExtra("name",name)
+            intent.putExtra("isorganizador",viewModel.isOrganizador.value)
+            intent.putExtra("tipocuota",viewModel.tipoCuota.value)
+            startActivity(intent)
         }
 
         //Observadores
