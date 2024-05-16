@@ -2,7 +2,7 @@
 Es una aplicacion Android desarrollada con el objetivo de llevar el control de los eventos de un grupo de persona.
 
 # Manejo de la aplicación
-ES NECESARIO PODER CREAR TU CUENTA, YA SEA CON CORREO PERSONAL O CORPORATIVO
+ES NECESARIO CREAR TU CUENTA, YA SEA CON CORREO PERSONAL O CORPORATIVO
 
 # Administrador
 Cualquier usuario puede crear x numero de eventos... Al realizarlo, automaticamente se convierte en "Administrador del evento".
