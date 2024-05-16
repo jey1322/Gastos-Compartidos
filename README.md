@@ -27,6 +27,10 @@ Cualquier usuario puede crear un evento (Ser administrador), y cualquier usuario
 
 ![image](https://github.com/jey1322/Gastos-Compartidos/assets/44885614/0c280d9e-1188-4855-ad7e-1d1dc0750a5f)    ![image](https://github.com/jey1322/Gastos-Compartidos/assets/44885614/77c4e229-9ce5-475e-bc5b-a6aa6cd08424)
 
+![image](https://github.com/jey1322/Gastos-Compartidos/assets/44885614/b2527baa-219e-44b0-ab8f-b62c5b56962d)    ![image](https://github.com/jey1322/Gastos-Compartidos/assets/44885614/b7e336f1-bec9-4d40-a8b1-2da134069043)
+
+
+
 
 
 
