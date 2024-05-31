@@ -10,7 +10,7 @@
         android:layout_height="30dp"
         tools:text="Colaboracion"
         android:textColor="@color/text"
-        android:textSize="13dp"
+        android:textSize="15dp"
         android:gravity="center_vertical"
         android:maxLines="1"
         android:ellipsize="end"

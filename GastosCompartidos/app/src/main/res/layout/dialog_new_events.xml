@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:text="Crear evento"
             android:textColor="@color/text"
-            android:textSize="20dp"
+            android:textSize="22dp"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
             android:layout_marginHorizontal="10dp"/>
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:text="Puedes agregar personas a este evento utilizando su nombre o correo electrónico."
             android:textColor="@color/text"
-            android:textSize="13dp"
+            android:textSize="15dp"
             android:layout_marginHorizontal="10dp"/>
 
         <TextView
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:text="Evento:"
             android:textColor="@color/text"
-            android:textSize="15dp"
+            android:textSize="17dp"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
             android:layout_marginHorizontal="10dp"/>
@@ -44,7 +44,7 @@
             android:id="@+id/etEvento"
             android:hint="Cumpleaños, Cooperacion, Honras funebres, etc."
             android:textColor="@color/text"
-            android:textSize="13dp"
+            android:textSize="15dp"
             android:paddingHorizontal="10dp"
             android:maxLines="1"
             android:inputType="text"
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:text="Fecha:"
             android:textColor="@color/text"
-            android:textSize="15dp"
+            android:textSize="17dp"
             android:textStyle="bold"
             android:layout_marginTop="10dp"
             android:layout_marginHorizontal="10dp"/>
@@ -70,7 +70,7 @@
             android:clickable="false"
             android:focusable="false"
             android:textColor="@color/text"
-            android:textSize="13dp"
+            android:textSize="15dp"
             android:paddingHorizontal="10dp"
             android:maxLines="1"
             android:inputType="text"
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:text="Tipo de evento:"
             android:textColor="@color/text"
-            android:textSize="15dp"
+            android:textSize="17dp"
             android:textStyle="bold"
             android:layout_marginTop="10dp"
             android:layout_marginHorizontal="10dp"/>
@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:text="Tipo de cuota:"
             android:textColor="@color/text"
-            android:textSize="15dp"
+            android:textSize="17dp"
             android:textStyle="bold"
             android:layout_marginTop="10dp"
             android:layout_marginHorizontal="10dp"/>
@@ -118,7 +118,7 @@
             android:layout_height="wrap_content"
             android:text="Participantes al evento:"
             android:textColor="@color/text"
-            android:textSize="15dp"
+            android:textSize="17dp"
             android:textStyle="bold"
             android:layout_marginTop="10dp"
             android:layout_marginHorizontal="10dp"/>
@@ -128,7 +128,7 @@
             android:layout_height="40dp"
             android:text="Buscar y seleccionar participantes"
             android:textColor="@color/text"
-            android:textSize="13dp"
+            android:textSize="15dp"
             android:layout_marginTop="5dp"
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/edittext"
@@ -159,7 +159,7 @@
                 android:layout_height="40dp"
                 android:text="Crear Evento"
                 android:textColor="@color/white"
-                android:textSize="15dp"
+                android:textSize="17dp"
                 android:textAllCaps="false"
                 android:textStyle="bold"
                 android:background="@drawable/button"
@@ -176,7 +176,7 @@
                 android:layout_height="40dp"
                 android:text="Cancelar"
                 android:textColor="@color/whiteInvert"
-                android:textSize="15dp"
+                android:textSize="17dp"
                 android:textAllCaps="false"
                 android:textStyle="bold"
                 android:background="@drawable/button_cancel"
