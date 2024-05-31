@@ -11,12 +11,12 @@ import com.strainteam.gastoscompartidos.adapter.ItemParticipantes
 import com.strainteam.gastoscompartidos.model.Eventos
 import com.strainteam.gastoscompartidos.viewmodel.utils.SingleLiveEvent
 
-class ParticipantesViewModel(application: Application): AndroidViewModel(application) {
+class ParticipantesViewModel(application: Application, isOrginizador: Boolean, tipoCuota: String): AndroidViewModel(application) {
     private val context = getApplication<Application>().applicationContext
     private lateinit var auth: FirebaseAuth
     private lateinit var dbEventoRef : DatabaseReference
     private lateinit var database: FirebaseDatabase
-    val participantesAdapter = ItemParticipantes(context, mutableListOf(), false, "")
+    val participantesAdapter = ItemParticipantes(context, mutableListOf(), isOrginizador, tipoCuota)
     val hideProgress = SingleLiveEvent<Boolean>()
     val showNoParticipantes = SingleLiveEvent<Boolean>()
     val messageToast = SingleLiveEvent<String>()
