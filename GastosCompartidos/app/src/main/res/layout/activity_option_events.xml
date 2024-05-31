@@ -22,12 +22,10 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/back"
                 android:drawableStart="@drawable/ic_back"
-                android:background="@drawable/button_cancel"
                 android:padding="2dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="10dp"/>
+                android:layout_marginTop="20dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -37,7 +35,6 @@
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:layout_marginTop="20dp"
-                android:layout_marginStart="10dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/back"/>
 
@@ -50,6 +47,7 @@
             tools:text="Evento: Cumpleaños Jairo Paniagua"
             android:textColor="@color/text"
             android:maxLines="1"
+            android:textStyle="bold"
             android:ellipsize="end"
             android:textSize="15dp"
             android:layout_marginTop="20dp"
