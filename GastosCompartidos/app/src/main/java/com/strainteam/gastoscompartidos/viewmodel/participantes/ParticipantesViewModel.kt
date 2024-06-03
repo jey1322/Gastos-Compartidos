@@ -11,12 +11,12 @@ import com.strainteam.gastoscompartidos.adapter.ItemParticipantes
 import com.strainteam.gastoscompartidos.model.Eventos
 import com.strainteam.gastoscompartidos.viewmodel.utils.SingleLiveEvent
 
-class ParticipantesViewModel(application: Application, isOrginizador: Boolean, tipoCuota: String): AndroidViewModel(application) {
+class ParticipantesViewModel(application: Application, isOrginizador: Boolean, tipoCuota: String, idEvento: String): AndroidViewModel(application) {
     private val context = getApplication<Application>().applicationContext
     private lateinit var auth: FirebaseAuth
     private lateinit var dbEventoRef : DatabaseReference
     private lateinit var database: FirebaseDatabase
-    val participantesAdapter = ItemParticipantes(context, mutableListOf(), isOrginizador, tipoCuota)
+    val participantesAdapter = ItemParticipantes(context, mutableListOf(), isOrginizador, tipoCuota, idEvento, this)
     val hideProgress = SingleLiveEvent<Boolean>()
     val showNoParticipantes = SingleLiveEvent<Boolean>()
     val messageToast = SingleLiveEvent<String>()
@@ -53,6 +53,26 @@ class ParticipantesViewModel(application: Application, isOrginizador: Boolean, t
             }else{
                 hideProgress.value = true
                 messageToast.value = "Error al obtener los participantes: ${it.exception?.message}"
+            }
+        }
+    }
+
+    fun deleteParticipante(idEvento: String, idParticipante: String){
+        dbEventoRef.child(idEvento).child("Participantes").child(idParticipante).removeValue().addOnCompleteListener {
+            if(it.isSuccessful){
+                messageToast.value = "Participante eliminado"
+            }else{
+                messageToast.value = "Error al eliminar participante: ${it.exception?.message}"
+            }
+        }
+    }
+
+    fun addtotalDepositarParticipante(idEvento: String, idParticipante: String, totalDepositar: Int){
+        dbEventoRef.child(idEvento).child("Participantes").child(idParticipante).child("totalDepositar").setValue(totalDepositar).addOnCompleteListener {
+            if(it.isSuccessful){
+                messageToast.value = "Total depositar actualizado"
+            }else{
+                messageToast.value = "Error al actualizar total depositar: ${it.exception?.message}"
             }
         }
     }
