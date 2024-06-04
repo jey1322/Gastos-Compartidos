@@ -85,6 +85,18 @@ class Participantes : AppCompatActivity() {
             }
             dialog.show()
         }
+        viewModel.showDialogPedido.observe(this){
+            val pedido = if(it.isEmpty()) "No hay pedido" else it
+            val dialog = MaterialAlertDialogBuilder(this)
+            dialog.setBackground(resources.getDrawable(R.drawable.button_cancel))
+            dialog.setTitle("Pedido")
+            dialog.setMessage("${pedido}")
+            dialog.setPositiveButton("Aceptar") { dialog, _ ->
+                dialog.dismiss()
+            }
+            dialog.show()
+
+        }
 
     }
 

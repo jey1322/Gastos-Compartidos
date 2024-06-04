@@ -23,6 +23,7 @@ class ParticipantesViewModel(application: Application, isOrginizador: Boolean, t
     val participantesList = MutableLiveData<MutableList<Eventos.Participantes>>()
     val showDialogDelete = SingleLiveEvent<String>()
     val showDialogCuota = SingleLiveEvent<String>()
+    val showDialogPedido = SingleLiveEvent<String>()
 
     init {
         database = FirebaseDatabase.getInstance()
@@ -111,5 +112,22 @@ class ParticipantesViewModel(application: Application, isOrginizador: Boolean, t
         }
     }
 
+    fun showDialogPed(pedido: String){
+        showDialogPedido.value = pedido
+    }
+
+    fun getPedidoParticipante(idEvento: String, idParticipante: String){
+        dbEventoRef.child(idEvento).child("Participantes").get().addOnCompleteListener {
+            if(it.isSuccessful){
+                for (participante in it.result!!.children){
+                    if(participante.child("id").value.toString() == idParticipante){
+                        showDialogPed(participante.child("pedido").value.toString())
+                    }
+                }
+            }else{
+                messageToast.value = "Error: ${it.exception?.message}"
+            }
+        }
+    }
 
 }

@@ -28,7 +28,7 @@ class ItemParticipantes(private val context: Context, private var mParticipantes
                 viewModel.showDialogAddCuota(participantes.id)
             }
             binding.tvPedido.setOnClickListener {
-                Toast.makeText(context, "Pedido", Toast.LENGTH_SHORT).show()
+                viewModel.getPedidoParticipante(idEvento, participantes.id)
             }
         }
     }
