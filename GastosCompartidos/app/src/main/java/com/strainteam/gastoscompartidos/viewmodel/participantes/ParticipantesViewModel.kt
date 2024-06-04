@@ -21,6 +21,7 @@ class ParticipantesViewModel(application: Application, isOrginizador: Boolean, t
     val showNoParticipantes = SingleLiveEvent<Boolean>()
     val messageToast = SingleLiveEvent<String>()
     val participantesList = MutableLiveData<MutableList<Eventos.Participantes>>()
+    val showDialogDelete = SingleLiveEvent<String>()
 
     init {
         database = FirebaseDatabase.getInstance()
@@ -33,14 +34,16 @@ class ParticipantesViewModel(application: Application, isOrginizador: Boolean, t
             if(it.isSuccessful){
                 val participantesList = mutableListOf<Eventos.Participantes>()
                 for (participante in it.result!!.children){
-                    participantesList.add(Eventos.Participantes(
-                        participante.child("id").value.toString(),
-                        participante.child("email").value.toString(),
-                        participante.child("name").value.toString(),
-                        participante.child("pedido").value.toString(),
-                        participante.child("totalDepositar").value.toString().toInt(),
-                        participante.child("pagado").value as Boolean
-                    ))
+                    if(participante.child("id").value.toString() != auth.currentUser?.uid){
+                        participantesList.add(Eventos.Participantes(
+                            participante.child("id").value.toString(),
+                            participante.child("email").value.toString(),
+                            participante.child("name").value.toString(),
+                            participante.child("pedido").value.toString(),
+                            participante.child("totalDepositar").value.toString().toInt(),
+                            participante.child("pagado").value as Boolean
+                        ))
+                    }
                 }
                 if(participantesList.isNotEmpty()) {
                     this.participantesList.value = participantesList
@@ -55,6 +58,10 @@ class ParticipantesViewModel(application: Application, isOrginizador: Boolean, t
                 messageToast.value = "Error al obtener los participantes: ${it.exception?.message}"
             }
         }
+    }
+
+    fun showDialogDeleteParticipante(idParticipante: String){
+        showDialogDelete.value = idParticipante
     }
 
     fun deleteParticipante(idEvento: String, idParticipante: String){

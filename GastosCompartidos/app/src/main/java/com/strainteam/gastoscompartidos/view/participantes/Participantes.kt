@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.strainteam.gastoscompartidos.databinding.ActivityParticipantesBinding
 import com.strainteam.gastoscompartidos.viewmodel.participantes.ParticipantesViewModel
 
@@ -49,6 +50,18 @@ class Participantes : AppCompatActivity() {
         }
         viewModel.participantesList.observe(this) {
             viewModel.participantesAdapter.notifyDataSetChanged()
+        }
+        viewModel.showDialogDelete.observe(this) {
+            val dialog = MaterialAlertDialogBuilder(this)
+                .setTitle("Eliminar participante")
+                .setMessage("¿Estás seguro de eliminar el participante ${it}?")
+                .setPositiveButton("Eliminar") { _, _ ->
+                    viewModel.deleteParticipante(id, it)
+                }
+                .setNegativeButton("Cancelar") { dialog, _ ->
+                    dialog.dismiss()
+                }
+            dialog.show()
         }
 
     }

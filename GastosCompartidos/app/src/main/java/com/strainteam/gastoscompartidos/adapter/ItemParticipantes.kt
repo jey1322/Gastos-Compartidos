@@ -22,17 +22,8 @@ class ItemParticipantes(private val context: Context, private var mParticipantes
             binding.tvAddCuota.visibility = if (isOrganizador && tipoCuota == "Cuota Variable") View.VISIBLE else View.GONE
             binding.tvDelete.visibility = if (isOrganizador) View.VISIBLE else View.GONE
             binding.tvDelete.setOnClickListener {
-                val dialog = MaterialAlertDialogBuilder(context.applicationContext)
-                    .setTitle("Eliminar participante")
-                    .setMessage("¿Estás seguro de eliminar a ${participantes.name}?")
-                    .setPositiveButton("Eliminar") { _, _ ->
-                        val posicionLista = mParticipantes.indexOf(participantes).toString()
-                        viewModel.deleteParticipante(idEvento, posicionLista)
-                    }
-                    .setNegativeButton("Cancelar") { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                dialog.show()
+                val posicionLista = mParticipantes.indexOf(participantes).toString()
+                viewModel.showDialogDeleteParticipante(posicionLista)
             }
             binding.tvAddCuota.setOnClickListener {
                 Toast.makeText(context, "Agregar cuota", Toast.LENGTH_SHORT).show()
