@@ -65,11 +65,22 @@ class ParticipantesViewModel(application: Application, isOrginizador: Boolean, t
     }
 
     fun deleteParticipante(idEvento: String, idParticipante: String){
-        dbEventoRef.child(idEvento).child("Participantes").child(idParticipante).removeValue().addOnCompleteListener {
+        dbEventoRef.child(idEvento).child("Participantes").get().addOnCompleteListener {
             if(it.isSuccessful){
-                messageToast.value = "Participante eliminado"
+                for (participante in it.result!!.children){
+                    if(participante.child("id").value.toString() == idParticipante){
+                        participante.ref.removeValue().addOnCompleteListener {
+                            if(it.isSuccessful){
+                                messageToast.value = "Participante eliminado"
+                                getParticipantesEvento(idEvento)
+                            }else{
+                                messageToast.value = "Error eliminar: ${it.exception?.message}"
+                            }
+                        }
+                    }
+                }
             }else{
-                messageToast.value = "Error al eliminar participante: ${it.exception?.message}"
+                messageToast.value = "Error: ${it.exception?.message}"
             }
         }
     }

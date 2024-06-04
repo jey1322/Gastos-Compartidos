@@ -22,8 +22,7 @@ class ItemParticipantes(private val context: Context, private var mParticipantes
             binding.tvAddCuota.visibility = if (isOrganizador && tipoCuota == "Cuota Variable") View.VISIBLE else View.GONE
             binding.tvDelete.visibility = if (isOrganizador) View.VISIBLE else View.GONE
             binding.tvDelete.setOnClickListener {
-                val posicionLista = mParticipantes.indexOf(participantes).toString()
-                viewModel.showDialogDeleteParticipante(posicionLista)
+                viewModel.showDialogDeleteParticipante(participantes.id)
             }
             binding.tvAddCuota.setOnClickListener {
                 Toast.makeText(context, "Agregar cuota", Toast.LENGTH_SHORT).show()
