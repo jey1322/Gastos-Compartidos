@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.strainteam.gastoscompartidos.R
 import com.strainteam.gastoscompartidos.databinding.FragmentProfileBinding
 import com.strainteam.gastoscompartidos.view.login.MainActivity
 import com.strainteam.gastoscompartidos.viewmodel.home.fragments.ProfileFragViewModel
@@ -63,6 +64,7 @@ class ProfileFragment : Fragment() {
         viewModel.openEmail.observe(viewLifecycleOwner, Observer {
             val dialog = MaterialAlertDialogBuilder(requireContext())
             dialog.setTitle("Verifica tu correo electrónico")
+            dialog.setBackground(resources.getDrawable(R.drawable.button_cancel))
             dialog.setMessage("Para usar la aplicación es necesario verificar tu correo electrónico.\n¿Deseas abrir tu aplicación de correo electrónico?")
             dialog.setCancelable(false)
             dialog.setPositiveButton("Abrir Correo"){_,_ ->
@@ -111,6 +113,7 @@ class ProfileFragment : Fragment() {
         binding.tvDeleteUser.setOnClickListener { 
             val dialog = MaterialAlertDialogBuilder(requireContext())
             dialog.setTitle("Eliminar cuenta")
+            dialog.setBackground(resources.getDrawable(R.drawable.button_cancel))
             dialog.setMessage("¿Estás seguro de que deseas eliminar tu cuenta?")
             dialog.setCancelable(false)
             dialog.setPositiveButton("Eliminar") { _, _ ->

@@ -22,6 +22,7 @@ class ParticipantesViewModel(application: Application, isOrginizador: Boolean, t
     val messageToast = SingleLiveEvent<String>()
     val participantesList = MutableLiveData<MutableList<Eventos.Participantes>>()
     val showDialogDelete = SingleLiveEvent<String>()
+    val showDialogCuota = SingleLiveEvent<String>()
 
     init {
         database = FirebaseDatabase.getInstance()
@@ -85,12 +86,27 @@ class ParticipantesViewModel(application: Application, isOrginizador: Boolean, t
         }
     }
 
+    fun showDialogAddCuota(idParticipante: String){
+        showDialogCuota.value = idParticipante
+    }
+
     fun addtotalDepositarParticipante(idEvento: String, idParticipante: String, totalDepositar: Int){
-        dbEventoRef.child(idEvento).child("Participantes").child(idParticipante).child("totalDepositar").setValue(totalDepositar).addOnCompleteListener {
+        dbEventoRef.child(idEvento).child("Participantes").get().addOnCompleteListener {
             if(it.isSuccessful){
-                messageToast.value = "Total depositar actualizado"
+                for (participante in it.result!!.children){
+                    if(participante.child("id").value.toString() == idParticipante){
+                        participante.ref.child("totalDepositar").setValue(totalDepositar).addOnCompleteListener {
+                            if(it.isSuccessful){
+                                messageToast.value = "Cuota añadida"
+                                getParticipantesEvento(idEvento)
+                            }else{
+                                messageToast.value = "Error al añadir cuota: ${it.exception?.message}"
+                            }
+                        }
+                    }
+                }
             }else{
-                messageToast.value = "Error al actualizar total depositar: ${it.exception?.message}"
+                messageToast.value = "Error: ${it.exception?.message}"
             }
         }
     }

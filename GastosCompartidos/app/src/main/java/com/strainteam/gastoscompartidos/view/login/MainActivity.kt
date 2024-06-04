@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
             val dialog = MaterialAlertDialogBuilder(this)
             val bindingDialog = DialogCreateAccountBinding.inflate(layoutInflater)
             dialog.setView(bindingDialog.root)
+            dialog.setBackground(resources.getDrawable(R.drawable.button_cancel))
             dialog.setCancelable(false)
             val builder = dialog.create()
             builder.show()
@@ -59,6 +60,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.openEmail.observe(this, Observer {
             val dialog = MaterialAlertDialogBuilder(this)
             dialog.setTitle("Verifica tu correo electrónico")
+            dialog.setBackground(resources.getDrawable(R.drawable.button_cancel))
             dialog.setMessage("Para usar la aplicación es necesario verificar tu correo electrónico.\n¿Deseas abrir tu aplicación de correo electrónico?")
             dialog.setCancelable(false)
             dialog.setPositiveButton("Abrir Correo"){_,_ ->

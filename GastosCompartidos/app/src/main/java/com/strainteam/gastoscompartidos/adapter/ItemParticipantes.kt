@@ -25,7 +25,10 @@ class ItemParticipantes(private val context: Context, private var mParticipantes
                 viewModel.showDialogDeleteParticipante(participantes.id)
             }
             binding.tvAddCuota.setOnClickListener {
-                Toast.makeText(context, "Agregar cuota", Toast.LENGTH_SHORT).show()
+                viewModel.showDialogAddCuota(participantes.id)
+            }
+            binding.tvPedido.setOnClickListener {
+                Toast.makeText(context, "Pedido", Toast.LENGTH_SHORT).show()
             }
         }
     }

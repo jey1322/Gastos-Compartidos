@@ -84,6 +84,7 @@ class HomeFragment : Fragment() {
             val bindingDialog = DialogNewEventsBinding.inflate(layoutInflater)
             dialog.setView(bindingDialog.root)
             dialog.setCancelable(false)
+            dialog.setBackground(resources.getDrawable(R.drawable.button_cancel))
             bindingDialog.spTipoEvento.adapter = ArrayAdapter(requireContext(), R.layout.spinner_list,R.id.tvTextSpinner, motivoList)
             bindingDialog.spTipoCuota.adapter = ArrayAdapter(requireContext(), R.layout.spinner_list,R.id.tvTextSpinner, cuotaList)
             val builder = dialog.create()

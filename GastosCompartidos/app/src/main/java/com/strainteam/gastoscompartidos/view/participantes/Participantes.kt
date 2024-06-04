@@ -10,7 +10,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.strainteam.gastoscompartidos.R
 import com.strainteam.gastoscompartidos.databinding.ActivityParticipantesBinding
+import com.strainteam.gastoscompartidos.databinding.DialogAddCuotaBinding
 import com.strainteam.gastoscompartidos.viewmodel.participantes.ParticipantesViewModel
 
 class Participantes : AppCompatActivity() {
@@ -53,6 +55,7 @@ class Participantes : AppCompatActivity() {
         }
         viewModel.showDialogDelete.observe(this) {
             val dialog = MaterialAlertDialogBuilder(this)
+                .setBackground(resources.getDrawable(R.drawable.button_cancel))
                 .setTitle("Eliminar participante")
                 .setMessage("¿Estás seguro de eliminar el participante ${it}?")
                 .setPositiveButton("Eliminar") { _, _ ->
@@ -61,6 +64,25 @@ class Participantes : AppCompatActivity() {
                 .setNegativeButton("Cancelar") { dialog, _ ->
                     dialog.dismiss()
                 }
+            dialog.show()
+        }
+        viewModel.showDialogCuota.observe(this){
+            val dialog = MaterialAlertDialogBuilder(this)
+            dialog.setBackground(resources.getDrawable(R.drawable.button_cancel))
+            dialog.setCancelable(false)
+            val bindingDialog = DialogAddCuotaBinding.inflate(layoutInflater)
+            dialog.setView(bindingDialog.root)
+            dialog.setPositiveButton("Agregar") { _, _ ->
+                val cuota = bindingDialog.etCuotaVal.text.toString()
+                if(cuota.isNotEmpty()){
+                    viewModel.addtotalDepositarParticipante(id, it, cuota.toInt())
+                }else{
+                    Toast.makeText(this, "Introduce una cuota", Toast.LENGTH_SHORT).show()
+                }
+            }
+            dialog.setNegativeButton("Cancelar") { dialog, _ ->
+                dialog.dismiss()
+            }
             dialog.show()
         }
 

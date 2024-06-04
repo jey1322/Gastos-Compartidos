@@ -49,6 +49,7 @@ class OptionEvents : AppCompatActivity() {
 
         binding.tvCuotaPagada.setOnClickListener {
             val dialog = MaterialAlertDialogBuilder(this)
+            dialog.setBackground(resources.getDrawable(R.drawable.button_cancel))
             dialog.setTitle("Marcar como pagada?")
             dialog.setMessage("Realiza esta acción siempre y cuando ya hayas depositado tu cuota al organizador")
             dialog.setPositiveButton("Marcar pagada"){ _, _ ->
@@ -63,6 +64,7 @@ class OptionEvents : AppCompatActivity() {
 
         binding.tvPedido.setOnClickListener {
             val dialog = MaterialAlertDialogBuilder(this)
+            dialog.setBackground(resources.getDrawable(R.drawable.button_cancel))
             val bindingDialog = DialogPedidoBinding.inflate(layoutInflater)
             dialog.setView(bindingDialog.root)
             bindingDialog.etPedido.setText(viewModel.pedido.value)
@@ -78,6 +80,7 @@ class OptionEvents : AppCompatActivity() {
 
         binding.tvSalirmeEvento.setOnClickListener {
             val dialog = MaterialAlertDialogBuilder(this)
+            dialog.setBackground(resources.getDrawable(R.drawable.button_cancel))
             dialog.setTitle("Salirme del evento")
             dialog.setMessage("Estas seguro de salirte de este evento?")
             dialog.setPositiveButton("Salirme"){ _, _ ->
@@ -92,6 +95,7 @@ class OptionEvents : AppCompatActivity() {
 
         binding.tvDeleteEvent.setOnClickListener {
             val dialog = MaterialAlertDialogBuilder(this)
+            dialog.setBackground(resources.getDrawable(R.drawable.button_cancel))
             dialog.setTitle("Eliminar evento")
             dialog.setMessage("Estas seguro de eliminar este evento?")
             dialog.setPositiveButton("Eliminar"){ _, _ ->
@@ -107,6 +111,7 @@ class OptionEvents : AppCompatActivity() {
         binding.tvCuotaFija.setOnClickListener {
             val dialog = MaterialAlertDialogBuilder(this)
             dialog.setCancelable(false)
+            dialog.setBackground(resources.getDrawable(R.drawable.button_cancel))
             val bindingDialog = DialogCuotaFijaBinding.inflate(layoutInflater)
             dialog.setView(bindingDialog.root)
             dialog.setPositiveButton("Guardar"){ _, _ ->
@@ -209,6 +214,7 @@ class OptionEvents : AppCompatActivity() {
         viewModel.showDialogBanco.observe(this, Observer {
             if(it){
                 val dialog = MaterialAlertDialogBuilder(this)
+                dialog.setBackground(resources.getDrawable(R.drawable.button_cancel))
                 dialog.setCancelable(false)
                 val bindingDialog = DialogBancosBinding.inflate(layoutInflater)
                 dialog.setView(bindingDialog.root)
@@ -234,6 +240,7 @@ class OptionEvents : AppCompatActivity() {
         viewModel.showDialogEdit.observe(this, Observer {
             if(it){
                 val dialog = MaterialAlertDialogBuilder(this)
+                dialog.setBackground(resources.getDrawable(R.drawable.button_cancel))
                 dialog.setCancelable(false)
                 val bindingDialog = DialogUpdateEventoBinding.inflate(layoutInflater)
                 dialog.setView(bindingDialog.root)
