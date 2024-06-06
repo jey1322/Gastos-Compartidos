@@ -119,10 +119,11 @@ class Participantes : AppCompatActivity() {
                 val list = viewModel.userList.value!!.filter { it.select }
                 if(list.isNotEmpty()){
                     //viewModel.addParticipante(id,list)
+
+                    builder.dismiss()
                 }else{
                     Toast.makeText(this, "Selecciona al menos un participante", Toast.LENGTH_SHORT).show()
                 }
-                builder.dismiss()
             }
 
         }

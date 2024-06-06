@@ -117,11 +117,11 @@ class HomeFragment : Fragment() {
                     val list = viewModel.userList.value!!.filter { it.select }
                     if(list.isNotEmpty()){
                         viewModel.migrateUserAUserSelect(list)
+                        bindingDialog.tvTotalParticipante.text = "Total: "+viewModel.userSelectList.value!!.size.toString()
+                        builder.dismiss()
                     }else{
                         Toast.makeText(requireContext(), "Selecciona al menos un participante", Toast.LENGTH_LONG).show()
                     }
-                    bindingDialog.tvTotalParticipante.text = "Total: "+viewModel.userSelectList.value!!.size.toString()
-                    builder.dismiss()
                 }
 
                 bindingSheet.etSearch.addTextChangedListener {
