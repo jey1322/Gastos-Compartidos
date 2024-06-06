@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/backp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.home.fragments.ProfileFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvProfile"
+            android:text="Mi Perfil"
+            android:textColor="@color/text"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"/>
+
+        <ProgressBar
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/pbProfile"
+            android:indeterminate="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"/>
+
+        <ImageView
+            android:id="@+id/ivUser"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/profile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvProfile"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="10dp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvName"
+            tools:text="Jairo Antonio Paniagua Garcia"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textStyle="bold"
+            android:textColor="@color/text"
+            android:textSize="17dp"
+            app:layout_constraintTop_toTopOf="@id/ivUser"
+            app:layout_constraintStart_toEndOf="@id/ivUser"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/ivUser"
+            android:layout_marginEnd="10dp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvEmail"
+            tools:text="jeypaniagua@gmail.com"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/text"
+            android:textSize="15dp"
+            app:layout_constraintTop_toBottomOf="@id/tvName"
+            app:layout_constraintStart_toEndOf="@id/ivUser"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="10dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Configuración de la cuenta"
+                android:textColor="@color/text"
+                android:textSize="17dp"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"/>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableStart="@drawable/ic_available"
+                android:gravity="center_vertical"
+                android:drawablePadding="5dp"
+                android:text="Disponible para eventos?"
+                android:textColor="@color/text"
+                android:textSize="15dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext"
+                android:paddingHorizontal="10dp"
+                android:id="@+id/swAvailable"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Restablecer contraseña"
+                android:drawableStart="@drawable/ic_forgot_password"
+                android:gravity="center_vertical"
+                android:drawablePadding="5dp"
+                android:paddingHorizontal="10dp"
+                android:background="@drawable/edittext"
+                android:textColor="@color/text"
+                android:textSize="15dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tvForgotPassword"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Cambiar correo electrónico"
+                android:drawableStart="@drawable/ic_email_contact"
+                android:gravity="center_vertical"
+                android:drawablePadding="5dp"
+                android:paddingHorizontal="10dp"
+                android:background="@drawable/edittext"
+                android:textColor="@color/text"
+                android:textSize="15dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tvEmailContact"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Eliminar mi cuenta"
+                android:drawableStart="@drawable/ic_person_off"
+                android:gravity="center_vertical"
+                android:drawablePadding="5dp"
+                android:paddingHorizontal="10dp"
+                android:background="@drawable/edittext"
+                android:textColor="@color/Background"
+                android:textSize="15dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tvDeleteUser"/>
+
+            <androidx.constraintlayout.utils.widget.MotionButton
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:text="Cerrar Sesión"
+                android:background="@drawable/button"
+                android:textColor="@color/white"
+                android:textSize="17dp"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginVertical="30dp"
+                android:id="@+id/btCloseSession"/>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

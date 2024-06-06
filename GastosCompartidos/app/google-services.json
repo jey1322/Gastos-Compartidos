@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1039770619173",
+    "project_id": "gastos-compartidos-4503d",
+    "storage_bucket": "gastos-compartidos-4503d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1039770619173:android:8e5c07f4028d1bbc495ecc",
+        "android_client_info": {
+          "package_name": "com.strainteam.gastoscompartidos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAowKBFVSlu_elBjFw3oALHnmYGmUsPHrY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

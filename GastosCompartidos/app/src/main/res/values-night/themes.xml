@@ -2,6 +2,9 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.GastosCompartidos" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="android:statusBarColor">@color/backp</item>
+        <item name="colorPrimary">@color/Background</item>
     </style>
+
+    <style name="Theme.GastosCompartidos" parent="Base.Theme.GastosCompartidos" />
 </resources>

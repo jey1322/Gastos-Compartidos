@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backp"
+    android:orientation="vertical"
+    tools:context=".view.home.fragments.HomeFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvProfile"
+            android:text="Gastos Compartidos"
+            android:textColor="@color/text"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"/>
+
+        <ProgressBar
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/progress"
+            android:visibility="gone"
+            android:indeterminate="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/etSearch"
+        android:hint="Buscar evento"
+        android:textColor="@color/text"
+        android:textSize="15dp"
+        android:background="@drawable/edittext"
+        android:paddingHorizontal="10dp"
+        android:drawableStart="@drawable/ic_search"
+        android:drawablePadding="5dp"
+        android:inputType="text"
+        android:imeOptions="actionDone"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="10dp"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Listado de eventos"
+            android:textColor="@color/text"
+            android:textSize="17dp"
+            android:id="@+id/tvEventos"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvNuevoEvento"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nuevo evento"
+            android:textColor="@color/Background"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:id="@+id/tvNuevoEvento"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rvEventos"
+        android:visibility="visible"
+        tools:listitem="@layout/item_eventos"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/nodata"
+        android:id="@+id/ivNoData"
+        android:visibility="gone"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No has creado o no te han agregado a ningún evento"
+        android:textColor="@color/text"
+        android:textSize="15dp"
+        android:id="@+id/tvNoData"
+        android:visibility="gone"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_gravity="center_horizontal"/>
+
+
+</LinearLayout>
