@@ -9,10 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.strainteam.gastoscompartidos.R
 import com.strainteam.gastoscompartidos.databinding.ActivityParticipantesBinding
 import com.strainteam.gastoscompartidos.databinding.DialogAddCuotaBinding
+import com.strainteam.gastoscompartidos.databinding.SheetSearchUserBinding
 import com.strainteam.gastoscompartidos.viewmodel.participantes.ParticipantesViewModel
 
 class Participantes : AppCompatActivity() {
@@ -95,6 +97,33 @@ class Participantes : AppCompatActivity() {
                 dialog.dismiss()
             }
             dialog.show()
+
+        }
+
+        //evento a click de los botones
+        binding.tvAddParticipante.setOnClickListener {
+            val builder = BottomSheetDialog(this)
+            val bindingSheet = SheetSearchUserBinding.inflate(layoutInflater)
+            builder.setContentView(bindingSheet.root)
+            bindingSheet.rvUser.layoutManager = LinearLayoutManager(this)
+            bindingSheet.rvUser.adapter = viewModel.userAdapter
+            viewModel.getUsers(id)
+            builder.show()
+            bindingSheet.tvCerrar.setOnClickListener {
+                builder.dismiss()
+            }
+            bindingSheet.btnCancel.setOnClickListener {
+                builder.dismiss()
+            }
+            bindingSheet.btnAdd.setOnClickListener {
+                val list = viewModel.userList.value!!.filter { it.select }
+                if(list.isNotEmpty()){
+                    //viewModel.addParticipante(id,list)
+                }else{
+                    Toast.makeText(this, "Selecciona al menos un participante", Toast.LENGTH_SHORT).show()
+                }
+                builder.dismiss()
+            }
 
         }
 

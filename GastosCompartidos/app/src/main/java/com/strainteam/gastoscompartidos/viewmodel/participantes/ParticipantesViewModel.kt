@@ -8,13 +8,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.strainteam.gastoscompartidos.adapter.ItemParticipantes
+import com.strainteam.gastoscompartidos.adapter.ItemUserAdapter
 import com.strainteam.gastoscompartidos.model.Eventos
+import com.strainteam.gastoscompartidos.model.User
 import com.strainteam.gastoscompartidos.viewmodel.utils.SingleLiveEvent
 
 class ParticipantesViewModel(application: Application, isOrginizador: Boolean, tipoCuota: String, idEvento: String): AndroidViewModel(application) {
     private val context = getApplication<Application>().applicationContext
     private lateinit var auth: FirebaseAuth
     private lateinit var dbEventoRef : DatabaseReference
+    private lateinit var dbUserRef: DatabaseReference
     private lateinit var database: FirebaseDatabase
     val participantesAdapter = ItemParticipantes(context, mutableListOf(), isOrginizador, tipoCuota, idEvento, this)
     val hideProgress = SingleLiveEvent<Boolean>()
@@ -24,11 +27,14 @@ class ParticipantesViewModel(application: Application, isOrginizador: Boolean, t
     val showDialogDelete = SingleLiveEvent<String>()
     val showDialogCuota = SingleLiveEvent<String>()
     val showDialogPedido = SingleLiveEvent<String>()
+    val userList = MutableLiveData<MutableList<User>>()
+    val userAdapter = ItemUserAdapter(context, mutableListOf())
 
     init {
         database = FirebaseDatabase.getInstance()
         auth = FirebaseAuth.getInstance()
         dbEventoRef = database.reference.child("Eventos")
+        dbUserRef = database.reference.child("User")
     }
 
     fun getParticipantesEvento(idEvento: String){
@@ -126,6 +132,37 @@ class ParticipantesViewModel(application: Application, isOrginizador: Boolean, t
                 }
             }else{
                 messageToast.value = "Error: ${it.exception?.message}"
+            }
+        }
+    }
+
+    fun getUsers(idEvento: String){
+        dbEventoRef.child(idEvento).child("Participantes").get().addOnCompleteListener { event ->
+            if(event.isSuccessful){
+                val userList = mutableSetOf<User>()
+                val currentParticipants = event.result!!.children.map { it.child("id").value.toString() }
+                dbUserRef.get().addOnCompleteListener { users ->
+                    if(users.isSuccessful){
+                        for (user in users.result!!.children){
+                            if(!currentParticipants.contains(user.key)){
+                                val newUser = User(
+                                    user.key.toString(),
+                                    user.child("Disponible").value as Boolean,
+                                    user.child("Name").value.toString(),
+                                    user.child("Email").value.toString(),
+                                    false
+                                )
+                                userList.add(newUser)
+                            }
+                        }
+                        this.userList.value = userList.toMutableList()
+                        userAdapter.updateData(userList.toList())
+                    }else{
+                        messageToast.value = "Error participantes: ${users.exception?.message}"
+                    }
+                }
+            }else{
+                messageToast.value = "Error usuarios: ${event.exception?.message}"
             }
         }
     }
