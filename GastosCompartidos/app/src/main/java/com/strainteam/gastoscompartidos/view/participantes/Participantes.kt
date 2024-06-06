@@ -118,8 +118,7 @@ class Participantes : AppCompatActivity() {
             bindingSheet.btnAdd.setOnClickListener {
                 val list = viewModel.userList.value!!.filter { it.select }
                 if(list.isNotEmpty()){
-                    //viewModel.addParticipante(id,list)
-
+                    viewModel.addParticipantes(id,list)
                     builder.dismiss()
                 }else{
                     Toast.makeText(this, "Selecciona al menos un participante", Toast.LENGTH_SHORT).show()

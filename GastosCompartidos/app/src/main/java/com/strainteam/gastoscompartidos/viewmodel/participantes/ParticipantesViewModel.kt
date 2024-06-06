@@ -11,6 +11,7 @@ import com.strainteam.gastoscompartidos.adapter.ItemParticipantes
 import com.strainteam.gastoscompartidos.adapter.ItemUserAdapter
 import com.strainteam.gastoscompartidos.model.Eventos
 import com.strainteam.gastoscompartidos.model.User
+import com.strainteam.gastoscompartidos.model.UserSelect
 import com.strainteam.gastoscompartidos.viewmodel.utils.SingleLiveEvent
 
 class ParticipantesViewModel(application: Application, isOrginizador: Boolean, tipoCuota: String, idEvento: String): AndroidViewModel(application) {
@@ -163,6 +164,26 @@ class ParticipantesViewModel(application: Application, isOrginizador: Boolean, t
                 }
             }else{
                 messageToast.value = "Error usuarios: ${event.exception?.message}"
+            }
+        }
+    }
+
+    fun addParticipantes(idEvent: String, list: List<User>){
+        val userSelectL = ArrayList<UserSelect>()
+        for(user in list){
+            val userSelect = UserSelect(user.id, user.nombre, user.email, 0, "", false)
+            if(!userSelectL.contains(userSelect)){
+                userSelectL.add(userSelect)
+            }
+        }
+        dbEventoRef.child(idEvent).child("Participantes").get().addOnCompleteListener {
+            if(it.isSuccessful){
+                for(user in userSelectL){
+                    dbEventoRef.child(idEvent).child("Participantes").child(user.id).setValue(user)
+                }
+                messageToast.value = "Participantes añadidos"
+            }else{
+                messageToast.value = "Error: ${it.exception?.message}"
             }
         }
     }
