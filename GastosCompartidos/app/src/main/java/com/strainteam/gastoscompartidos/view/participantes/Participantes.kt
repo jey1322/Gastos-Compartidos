@@ -30,6 +30,7 @@ class Participantes : AppCompatActivity() {
         val tipoCuota = intent.getStringExtra("tipocuota").toString()
         val id = intent.getStringExtra("id").toString()
         val name = intent.getStringExtra("name").toString()
+        binding.tvAddParticipante.visibility = if(isOrganizador) View.VISIBLE else View.GONE
 
         val viewModelFactory = ParticipantesViewModelFactory(application, isOrganizador, tipoCuota, id)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ParticipantesViewModel::class.java)
